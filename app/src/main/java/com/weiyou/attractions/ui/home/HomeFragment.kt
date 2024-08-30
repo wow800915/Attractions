@@ -5,30 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.weiyou.attractions.R
+import com.weiyou.attractions.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tvHome = view.findViewById<TextView>(R.id.tv_home)
-
-        // 設置點擊事件，導航到 NewsFragment
-        tvHome.setOnClickListener {
+        binding.tvHome.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_newsFragment)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
