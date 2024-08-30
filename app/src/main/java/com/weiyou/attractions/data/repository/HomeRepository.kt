@@ -1,4 +1,4 @@
-package com.weiyou.attractions.ui.home
+package com.weiyou.attractions.data.repository
 
 import javax.inject.Inject
 
