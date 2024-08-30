@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.weiyou.attractions.R
 import com.weiyou.attractions.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -30,9 +32,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        // 使用 lifecycleScope 启动协程来调用 suspend 函数
+        viewLifecycleOwner.lifecycleScope.launch {
+            homeViewModel.fetchAttractions("zh-cn")
+        }
+
         // 觀察 ViewModel 中的數據變化並更新 UI
         homeViewModel.text.observe(viewLifecycleOwner) { text ->
             binding.tvHome.text = text // 假設你有一個 TextView 綁定在 fragment_home.xml 中
+        }
+
+        // 观察 ViewModel 中的 attractions 数据变化并更新 UI
+        homeViewModel.attractionResponse.observe(viewLifecycleOwner) { attractions ->
+            attractions?.let {
+                binding.tvHome.text = attractions.toString() // 假设使用 address 更新 UI，你可以根据需求调整
+            }
         }
 
         binding.tvHome.setOnClickListener {

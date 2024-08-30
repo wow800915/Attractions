@@ -63,6 +63,16 @@ dependencies {
 
     // AndroidX ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+
+    // Retrofit and Gson
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+
+    // livedata
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+
+    // OkHttp Logging Interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
 }
 
 kapt {
