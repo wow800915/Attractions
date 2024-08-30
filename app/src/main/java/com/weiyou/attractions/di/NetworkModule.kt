@@ -2,6 +2,7 @@ package com.weiyou.attractions.di
 
 import com.google.gson.GsonBuilder
 import com.weiyou.attractions.data.network.ApiService
+import com.weiyou.attractions.utils.Constants.BASE_URL_TRAVEL_TAIPEI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +34,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://www.travel.taipei/open-api/")
+            .baseUrl(BASE_URL_TRAVEL_TAIPEI)
             .addConverterFactory(
                 GsonConverterFactory.create(
                     GsonBuilder()
