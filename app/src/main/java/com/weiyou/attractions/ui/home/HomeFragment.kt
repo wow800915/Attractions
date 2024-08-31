@@ -1,5 +1,6 @@
 package com.weiyou.attractions.ui.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import com.weiyou.attractions.ui.MainActivity
 import com.weiyou.attractions.utils.listener.UpperBarRightBottonListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -63,11 +65,38 @@ class HomeFragment : Fragment() {
         val title = getString(R.string.app_home_title) // 替换 your_string_id 为你的字符串资源ID
         val bottonListener = object : UpperBarRightBottonListener {
             override fun performAction() {
-                Toast.makeText(activity, binding.tvHome.text.toString(), Toast.LENGTH_SHORT).show()
+                // 显示语言选择器对话框
+                val languages = resources.getStringArray(R.array.language_options)
+                val languageValues = resources.getStringArray(R.array.language_values)
+
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle(R.string.change_language)
+                    .setItems(languages) { dialog, which ->
+                        // 根据选择更新语言
+                        val selectedLanguage = languageValues[which]
+                        Toast.makeText(
+                            activity,
+                            "选择的语言: ${languages[which]} ($selectedLanguage)",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        // 更改语言设置并重建活动
+                        setLocale(selectedLanguage)
+                        activity?.recreate()
+                    }
+                builder.create().show()
             }
         }
 
         (activity as? MainActivity)?.setUpperBar(title, null, bottonListener)
+    }
+
+    private fun setLocale(language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     override fun onDestroyView() {

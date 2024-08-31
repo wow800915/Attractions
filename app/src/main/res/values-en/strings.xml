@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">Attractions</string>
-    <string name="app_home_title">悠遊台北</string>
-    <string name="change_language">更改語言</string>
+    <string name="app_home_title">Explore Taipei</string>
+    <string name="change_language">Change Language</string>
 
     <string-array name="language_options">
-        <item>英文</item>
-        <item>簡體中文</item>
-        <item>正體中文</item>
-        <item>日文</item>
-        <item>韓文</item>
-        <item>西班牙文</item>
-        <item>印尼文</item>
-        <item>泰文</item>
-        <item>越南文</item>
+        <item>English</item>
+        <item>Simplified Chinese</item>
+        <item>Traditional Chinese</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Spanish</item>
+        <item>Indonesian</item>
+        <item>Thai</item>
+        <item>Vietnamese</item>
     </string-array>
     <string-array name="language_values">
         <item>en</item>
