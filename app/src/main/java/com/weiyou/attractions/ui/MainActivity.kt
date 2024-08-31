@@ -1,17 +1,16 @@
 package com.weiyou.attractions.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.weiyou.attractions.R
 import com.weiyou.attractions.databinding.ActivityMainBinding
+import com.weiyou.attractions.utils.listener.UpperBarBackBottonListener
+import com.weiyou.attractions.utils.listener.UpperBarRightBottonListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,4 +36,31 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun setUpperBar(
+        title: String,
+        upperBarBackBottonListener: UpperBarBackBottonListener?,
+        upperBarRightBottonListener: UpperBarRightBottonListener?
+    ) {
+        binding.tvTitle.text = title
+        if (upperBarBackBottonListener == null) {
+            binding.ivBack.visibility = View.GONE
+        } else {
+            binding.ivBack.visibility = View.VISIBLE
+            binding.ivBack.setOnClickListener {
+                upperBarBackBottonListener.performAction()
+            }
+        }
+
+        if (upperBarRightBottonListener == null) {
+            binding.ivLang.visibility = View.GONE
+        } else {
+            binding.ivLang.visibility = View.VISIBLE
+            binding.ivLang.setOnClickListener {
+                upperBarRightBottonListener.performAction()
+            }
+        }
+
+    }
+
 }

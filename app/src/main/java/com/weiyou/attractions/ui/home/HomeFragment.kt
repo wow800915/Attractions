@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.weiyou.attractions.R
 import com.weiyou.attractions.databinding.FragmentHomeBinding
+import com.weiyou.attractions.ui.MainActivity
+import com.weiyou.attractions.utils.listener.UpperBarRightBottonListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -32,6 +35,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpperBar()
 
         // 使用 lifecycleScope 启动协程来调用 suspend 函数
         viewLifecycleOwner.lifecycleScope.launch {
@@ -53,6 +57,17 @@ class HomeFragment : Fragment() {
         binding.tvHome.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_newsFragment)
         }
+    }
+
+    private fun setUpperBar() {
+        val title = getString(R.string.app_home_title) // 替换 your_string_id 为你的字符串资源ID
+        val bottonListener = object : UpperBarRightBottonListener {
+            override fun performAction() {
+                Toast.makeText(activity, binding.tvHome.text.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        (activity as? MainActivity)?.setUpperBar(title, null, bottonListener)
     }
 
     override fun onDestroyView() {
