@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,4 +40,12 @@ class HomeViewModel @Inject constructor(
             }
             .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
     }
+
+    suspend fun saveLanguage(language: String) {
+        viewModelScope.launch {
+            homeRepository.saveLanguage(language)
+        }
+    }
+
+    val language = homeRepository.getSavedLanguage()
 }

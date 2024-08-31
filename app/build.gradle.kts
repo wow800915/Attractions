@@ -73,6 +73,9 @@ dependencies {
 
     // OkHttp Logging Interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
+
+    // datastore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
 
 kapt {
