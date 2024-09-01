@@ -1,4 +1,4 @@
-package com.weiyou.attractions.utils
+package com.weiyou.attractions.data
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit

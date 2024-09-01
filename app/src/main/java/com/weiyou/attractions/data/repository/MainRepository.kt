@@ -1,6 +1,6 @@
 package com.weiyou.attractions.data.repository
 
-import com.weiyou.attractions.utils.LanguageDataStore
+import com.weiyou.attractions.data.LanguageDataStore
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

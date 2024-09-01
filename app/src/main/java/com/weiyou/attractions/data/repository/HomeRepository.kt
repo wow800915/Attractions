@@ -4,7 +4,7 @@ import com.weiyou.attractions.data.models.api.attractions.AttractionsOutput
 import com.weiyou.attractions.data.models.NetworkResult
 import com.weiyou.attractions.data.models.api.news.NewsOutput
 import com.weiyou.attractions.data.network.RemoteDataSource
-import com.weiyou.attractions.utils.LanguageDataStore
+import com.weiyou.attractions.data.LanguageDataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
