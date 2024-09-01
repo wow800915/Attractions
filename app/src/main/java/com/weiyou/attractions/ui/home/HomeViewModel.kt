@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.weiyou.attractions.data.models.attractions.AttractionsOutput
+import com.weiyou.attractions.data.models.api.attractions.AttractionsOutput
 import com.weiyou.attractions.data.models.NetworkResult
 import com.weiyou.attractions.data.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

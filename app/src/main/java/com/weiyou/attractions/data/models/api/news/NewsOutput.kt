@@ -1,7 +1,7 @@
-package com.weiyou.attractions.data.models.news
+package com.weiyou.attractions.data.models.api.news
 
-import com.weiyou.attractions.data.models.attractions.File
-import com.weiyou.attractions.data.models.attractions.Link
+import com.weiyou.attractions.data.models.api.attractions.File
+import com.weiyou.attractions.data.models.api.attractions.Link
 
 data class NewsOutput(
     val total: Int,

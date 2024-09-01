@@ -1,6 +1,6 @@
 package com.weiyou.attractions.data.repository
 
-import com.weiyou.attractions.data.models.attractions.AttractionsOutput
+import com.weiyou.attractions.data.models.api.attractions.AttractionsOutput
 import com.weiyou.attractions.data.models.NetworkResult
 import com.weiyou.attractions.data.network.RemoteDataSource
 import com.weiyou.attractions.utils.LanguageDataStore

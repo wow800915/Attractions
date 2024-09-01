@@ -1,7 +1,7 @@
 package com.weiyou.attractions.data.network
 
 import android.util.Log
-import com.weiyou.attractions.data.models.attractions.AttractionsOutput
+import com.weiyou.attractions.data.models.api.attractions.AttractionsOutput
 import com.weiyou.attractions.data.models.ErrorResponse
 import com.weiyou.attractions.data.models.NetworkResult
 import retrofit2.Response
