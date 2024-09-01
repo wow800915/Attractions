@@ -14,17 +14,10 @@ class MainViewModel @Inject constructor(
     private val mainRepository: MainRepository
 ) : ViewModel() {
 
-    private val _text = MutableLiveData<String>()
-    val text: LiveData<String> = _text
-
     private val _language = MutableLiveData<String?>()
     val language: LiveData<String?> = _language
 
     init {
-        // 示例数据
-        _text.value = mainRepository.getExampleData()
-
-        // 启动协程收集语言设置的变化
         viewModelScope.launch {
             mainRepository.getLanguage().collect { lang ->
                 _language.value = lang

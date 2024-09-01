@@ -20,9 +20,6 @@ class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository
 ) : ViewModel() {
 
-    private val _text = MutableLiveData<String>()
-    val text: LiveData<String> = _text
-
     private val _attractions = MutableLiveData<AttractionsResponse?>()
     val attractions: LiveData<AttractionsResponse?> = _attractions
 

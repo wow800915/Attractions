@@ -11,9 +11,4 @@ class MainRepository @Inject constructor(
     fun getLanguage(): Flow<String?> {
         return languageDataStore.selectedLanguage
     }
-
-    // 定义其他数据操作方法
-    fun getExampleData(): String {
-        return "這是來自 Repository 的數據"
-    }
 }

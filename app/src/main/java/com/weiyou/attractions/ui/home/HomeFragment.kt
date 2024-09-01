@@ -42,22 +42,17 @@ class HomeFragment : Fragment() {
             homeViewModel.fetchAttractions()
         }
 
-        // 觀察 ViewModel 中的數據變化並更新 UI
-        homeViewModel.text.observe(viewLifecycleOwner) { text ->
-            binding.tvHome.text = text // 假設你有一個 TextView 綁定在 fragment_home.xml 中
-        }
-
         // 观察 ViewModel 中的 attractions 数据变化并更新 UI
         homeViewModel.attractions.observe(viewLifecycleOwner) { attractions ->
             attractions?.let {
-                binding.tvHome.text = getString(
+                binding.tvAttractionsCount.text = getString(
                     R.string.app_home_attractions_with_value,
                     attractions.total.toString()
                 )
             }
         }
 
-        binding.tvHome.setOnClickListener {
+        binding.tvAttractionsCount.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_newsFragment)
         }
     }
@@ -81,7 +76,7 @@ class HomeFragment : Fragment() {
         val languageValues = resources.getStringArray(R.array.language_values)
 
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle(R.string.change_language)
+        builder.setTitle(R.string.app_home_choose_language)
             .setItems(languages) { dialog, which ->
                 val selectedLanguage = languageValues[which]
 
