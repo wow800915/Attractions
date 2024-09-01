@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.weiyou.attractions.R
 import com.weiyou.attractions.databinding.FragmentHomeBinding
 import com.weiyou.attractions.ui.MainActivity
@@ -25,6 +26,8 @@ class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModels() // 使用 Hilt 注入 ViewModel
 
+    private lateinit var homeAdapter: HomeAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +40,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpperBar()
+        setupRecyclerView()
 
         viewLifecycleOwner.lifecycleScope.launch {
             homeViewModel.fetchAttractions()
@@ -53,20 +57,28 @@ class HomeFragment : Fragment() {
             }
         }
 
-        homeViewModel.news.observe(viewLifecycleOwner) { attractions ->
-            attractions?.let {
-                Toast.makeText(
-                    requireActivity(), getString(
-                        R.string.app_home_attractions_with_value,
-                        attractions.total.toString()
-                    ), Toast.LENGTH_SHORT
-                ).show()
+        homeViewModel.news.observe(viewLifecycleOwner) { news ->
+            news?.let {
+                val homeItems = mutableListOf<HomeItem>()
+
+                news.data.forEach {
+                    it
+                    homeItems.add(HomeNewsItem(it))
+                }
+
+                homeAdapter.setItems(homeItems) // 更新 RecyclerView 的數據
             }
         }
 
         binding.tvAttractionsCount.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_newsFragment)
         }
+    }
+
+    private fun setupRecyclerView() {
+        homeAdapter = HomeAdapter()
+        binding.rvHome.adapter = homeAdapter
+        binding.rvHome.layoutManager = LinearLayoutManager(context)
     }
 
     private fun setUpperBar() {
