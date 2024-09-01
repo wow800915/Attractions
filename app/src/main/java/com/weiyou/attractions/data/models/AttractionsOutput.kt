@@ -1,11 +1,11 @@
 package com.weiyou.attractions.data.models
 
-data class AttractionsResponse(
+data class AttractionsOutput(
     val total: Int,
-    val data: List<AttractionResponse>
+    val data: List<Attraction>
 )
 
-data class AttractionResponse(
+data class Attraction(
     val id: Int,
     val name: String,
     val name_zh: String?,

@@ -1,7 +1,7 @@
 package com.weiyou.attractions.data.network
 
 import android.util.Log
-import com.weiyou.attractions.data.models.AttractionsResponse
+import com.weiyou.attractions.data.models.AttractionsOutput
 import com.weiyou.attractions.data.models.ErrorResponse
 import com.weiyou.attractions.data.models.NetworkResult
 import retrofit2.Response
@@ -31,7 +31,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         }
     }
 
-    suspend fun getAttractions(lang: String): NetworkResult<AttractionsResponse> {
+    suspend fun getAttractions(lang: String): NetworkResult<AttractionsOutput> {
         return getResponse(request = { apiService.getAttractions(lang) })
     }
 }

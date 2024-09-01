@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.weiyou.attractions.data.models.AttractionsResponse
+import com.weiyou.attractions.data.models.AttractionsOutput
 import com.weiyou.attractions.data.models.NetworkResult
 import com.weiyou.attractions.data.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +20,8 @@ class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository
 ) : ViewModel() {
 
-    private val _attractions = MutableLiveData<AttractionsResponse?>()
-    val attractions: LiveData<AttractionsResponse?> = _attractions
+    private val _attractions = MutableLiveData<AttractionsOutput?>()
+    val attractions: LiveData<AttractionsOutput?> = _attractions
 
 
     suspend fun fetchAttractions() {

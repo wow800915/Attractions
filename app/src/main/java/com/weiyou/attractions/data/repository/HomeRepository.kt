@@ -1,6 +1,6 @@
 package com.weiyou.attractions.data.repository
 
-import com.weiyou.attractions.data.models.AttractionsResponse
+import com.weiyou.attractions.data.models.AttractionsOutput
 import com.weiyou.attractions.data.models.NetworkResult
 import com.weiyou.attractions.data.network.RemoteDataSource
 import com.weiyou.attractions.utils.LanguageDataStore
@@ -19,7 +19,7 @@ class HomeRepository @Inject constructor(
 ) {
 
     // API 调用获取景点信息
-    suspend fun getAttractions(): Flow<NetworkResult<AttractionsResponse>> {
+    suspend fun getAttractions(): Flow<NetworkResult<AttractionsOutput>> {
         return languageDataStore.selectedLanguage
             .filterNotNull() // 过滤空值
             .flatMapLatest { lang -> // 使用最新的语言设置请求数据
