@@ -19,7 +19,7 @@ class LanguageDataStore(context: Context) {
 
     val selectedLanguage: Flow<String?> = dataStore.data
         .map { preferences ->
-            preferences[LANGUAGE_KEY] // 设置默认语言为英语
+            preferences[LANGUAGE_KEY]?: "zh-tw" // 設置預設語言為繁體中文
         }
 
     suspend fun saveLanguage(language: String) {

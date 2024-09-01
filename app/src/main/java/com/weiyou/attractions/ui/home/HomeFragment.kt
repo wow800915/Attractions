@@ -64,42 +64,28 @@ class HomeFragment : Fragment() {
 
     private fun setUpperBar() {
         val title = getString(R.string.app_home_title) // 替换 your_string_id 为你的字符串资源ID
+
         val bottonListener = object : UpperBarRightBottonListener {
             override fun performAction() {
-                // 显示语言选择器对话框
-                val languages = resources.getStringArray(R.array.language_options)
-                val languageValues = resources.getStringArray(R.array.language_values)
+                if (isAdded) {
+                    val languages = resources.getStringArray(R.array.language_options)
+                    val languageValues = resources.getStringArray(R.array.language_values)
 
-                val builder = AlertDialog.Builder(requireContext())
-                builder.setTitle(R.string.change_language)
-                    .setItems(languages) { dialog, which ->
-                        // 根据选择更新语言
-                        val selectedLanguage = languageValues[which]
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setTitle(R.string.change_language)
+                        .setItems(languages) { dialog, which ->
+                            val selectedLanguage = languageValues[which]
 
-                        // 启动协程来保存语言并在完成后重建活动
-                        viewLifecycleOwner.lifecycleScope.launch {
-
-                            homeViewModel.saveLanguage(selectedLanguage)
-
-                            setLocale(selectedLanguage)
-
-                            // 重建活动
-                            activity?.recreate()
+                            viewLifecycleOwner.lifecycleScope.launch {
+                                homeViewModel.saveLanguage(selectedLanguage)
+                            }
                         }
-                    }
-                builder.create().show()
+                    builder.create().show()
+                }
             }
         }
 
         (activity as? MainActivity)?.setUpperBar(title, null, bottonListener)
-    }
-
-    private fun setLocale(language: String) {
-        val locale = Locale(language)
-        Locale.setDefault(locale)
-        val config = resources.configuration
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     override fun onDestroyView() {

@@ -3,7 +3,6 @@ package com.weiyou.attractions.ui
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -12,6 +11,7 @@ import com.weiyou.attractions.databinding.ActivityMainBinding
 import com.weiyou.attractions.utils.listener.UpperBarBackBottonListener
 import com.weiyou.attractions.utils.listener.UpperBarRightBottonListener
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialize View Binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -31,9 +30,11 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        // 觀察 ViewModel 中的數據變化並更新 UI
-        mainViewModel.text.observe(this) { text ->
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+        // 觀察語言設置並更新配置，僅在語言變更時重啟 Activity
+        mainViewModel.language.observe(this) { dbLanguage ->
+            if (dbLanguage != null) {
+                syncLanguageFromDB(dbLanguage)
+            }
         }
     }
 
@@ -60,7 +61,39 @@ class MainActivity : AppCompatActivity() {
                 upperBarRightBottonListener.performAction()
             }
         }
+    }
 
+    private fun syncLanguageFromDB(dbLanguage: String) {
+        // 獲取當前配置的完整語言代碼
+        val currentLocale = resources.configuration.locales.get(0)
+
+        var currentDeviceLanguage: String? = null
+        if (currentLocale.language == "zh") {
+            if (currentLocale.country == "CN") {
+                currentDeviceLanguage = "zh-cn"
+            } else {
+                currentDeviceLanguage = "zh-tw"
+            }
+        } else if (resources.getStringArray(R.array.language_values)
+                .contains(currentLocale.language)
+        ) {
+            currentDeviceLanguage = currentLocale.language
+        } else {
+            // 如果不是預設支援的語言，則設定為繁體中文
+            currentDeviceLanguage = "zh-tw"
+        }
+        if (dbLanguage != currentDeviceLanguage) {
+            setLocale(dbLanguage!!)
+            recreate()  // 重啟 Activity 以應用新的語言設置
+        }
+    }
+
+    private fun setLocale(language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
 }
