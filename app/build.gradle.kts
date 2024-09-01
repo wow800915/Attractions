@@ -76,6 +76,10 @@ dependencies {
 
     // datastore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // glide
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
 }
 
 kapt {

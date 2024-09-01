@@ -3,8 +3,10 @@ package com.weiyou.attractions.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.weiyou.attractions.R
 import com.weiyou.attractions.ui.home.HomeItem.Companion.VIEW_TYPE_ATTRACTION
 import com.weiyou.attractions.ui.home.HomeItem.Companion.VIEW_TYPE_NEWS_ITEM
@@ -29,6 +31,7 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class AttractionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tv_title)
+        val ivAttraction: ImageView = view.findViewById(R.id.iv_attraction)
     }
 
     class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -67,6 +70,12 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is AttractionViewHolder -> {
                 val item = items[position] as HomeAttraction
                 holder.tvTitle.text = item.attraction.name
+                holder.ivAttraction
+                val imageUrl = "https://via.placeholder.com/300.png" // 示例图片URL
+
+                Glide.with(holder.itemView)
+                    .load(item.attraction.images[0].src)
+                    .into(holder.ivAttraction)
             }
 
             is NewsViewHolder -> {
