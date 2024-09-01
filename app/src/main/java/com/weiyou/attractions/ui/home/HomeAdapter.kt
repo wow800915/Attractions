@@ -15,10 +15,16 @@ import com.weiyou.attractions.ui.home.HomeItem.Companion.VIEW_TYPE_TITLE
 class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<HomeItem>()
 
+    private var newsItemClickListener: OnNewsItemClickListener? = null
+
     fun setItems(newItems: List<HomeItem>) {
         items.clear()
         items.addAll(newItems)
         notifyDataSetChanged()
+    }
+
+    fun setOnNewsItemClickListener(listener: OnNewsItemClickListener) {
+        this.newsItemClickListener = listener
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -81,12 +87,18 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is NewsViewHolder -> {
                 val item = items[position] as HomeNewsItem
                 holder.tvTitle.text = item.newsItem.title
-
+                holder.itemView.setOnClickListener {
+                    newsItemClickListener?.onNewsItemClick("Clicked News: ${item.newsItem.title}")
+                }
             }
         }
     }
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    interface OnNewsItemClickListener {
+        fun onNewsItemClick(message: String)
     }
 }

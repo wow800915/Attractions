@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.lifecycleScope
@@ -105,6 +106,12 @@ class HomeFragment : Fragment() {
         homeAdapter = HomeAdapter()
         binding.rvHome.adapter = homeAdapter
         binding.rvHome.layoutManager = LinearLayoutManager(context)
+
+        homeAdapter.setOnNewsItemClickListener(object : HomeAdapter.OnNewsItemClickListener {
+            override fun onNewsItemClick(message: String) {
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun setUpperBar() {
