@@ -1,7 +1,7 @@
 package com.weiyou.attractions.di
 
 import android.content.Context
-import com.weiyou.attractions.data.LanguageDataStore
+import com.weiyou.attractions.data.dataStore.LanguageDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
