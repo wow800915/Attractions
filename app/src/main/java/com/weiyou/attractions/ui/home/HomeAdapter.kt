@@ -77,11 +77,14 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val item = items[position] as HomeAttraction
                 holder.tvTitle.text = item.attraction.name
                 holder.ivAttraction
-                val imageUrl = "https://via.placeholder.com/300.png" // 示例图片URL
 
-                Glide.with(holder.itemView)
-                    .load(item.attraction.images[0].src)
-                    .into(holder.ivAttraction)
+                if (!item.attraction.images.isNullOrEmpty() && item.attraction.images[0].src != null) {
+                    Glide.with(holder.itemView)
+                        .load(item.attraction.images[0].src)
+                        .into(holder.ivAttraction)
+                } else {
+                    holder.ivAttraction.visibility = View.INVISIBLE
+                }
             }
 
             is NewsViewHolder -> {
