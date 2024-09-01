@@ -4,6 +4,7 @@ import android.util.Log
 import com.weiyou.attractions.data.models.api.attractions.AttractionsOutput
 import com.weiyou.attractions.data.models.ErrorResponse
 import com.weiyou.attractions.data.models.NetworkResult
+import com.weiyou.attractions.data.models.api.news.NewsOutput
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -33,5 +34,9 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     suspend fun getAttractions(lang: String): NetworkResult<AttractionsOutput> {
         return getResponse(request = { apiService.getAttractions(lang) })
+    }
+
+    suspend fun getNews(lang: String): NetworkResult<NewsOutput> {
+        return getResponse(request = { apiService.getNews(lang) })
     }
 }

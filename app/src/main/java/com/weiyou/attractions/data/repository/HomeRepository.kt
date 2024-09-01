@@ -2,6 +2,7 @@ package com.weiyou.attractions.data.repository
 
 import com.weiyou.attractions.data.models.api.attractions.AttractionsOutput
 import com.weiyou.attractions.data.models.NetworkResult
+import com.weiyou.attractions.data.models.api.news.NewsOutput
 import com.weiyou.attractions.data.network.RemoteDataSource
 import com.weiyou.attractions.utils.LanguageDataStore
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,18 @@ class HomeRepository @Inject constructor(
                 flow {
                     emit(NetworkResult.Loading)
                     val result = remoteDataSource.getAttractions(lang)
+                    emit(result)
+                }.flowOn(Dispatchers.IO)
+            }
+    }
+
+    suspend fun getNews(): Flow<NetworkResult<NewsOutput>> {
+        return languageDataStore.selectedLanguage
+            .filterNotNull() // 过滤空值
+            .flatMapLatest { lang -> // 使用最新的语言设置请求数据
+                flow {
+                    emit(NetworkResult.Loading)
+                    val result = remoteDataSource.getNews(lang)
                     emit(result)
                 }.flowOn(Dispatchers.IO)
             }

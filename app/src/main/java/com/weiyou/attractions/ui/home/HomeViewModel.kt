@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.weiyou.attractions.data.models.api.attractions.AttractionsOutput
 import com.weiyou.attractions.data.models.NetworkResult
+import com.weiyou.attractions.data.models.api.news.NewsOutput
 import com.weiyou.attractions.data.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -23,6 +24,8 @@ class HomeViewModel @Inject constructor(
     private val _attractions = MutableLiveData<AttractionsOutput?>()
     val attractions: LiveData<AttractionsOutput?> = _attractions
 
+    private val _news = MutableLiveData<NewsOutput?>()
+    val news: LiveData<NewsOutput?> = _news
 
     suspend fun fetchAttractions() {
         viewModelScope.launch {
@@ -40,6 +43,27 @@ class HomeViewModel @Inject constructor(
                 }
                 .catch { e ->
                     _attractions.value = null //TODO 錯誤訊息
+                }
+                .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
+        }
+    }
+
+    suspend fun fetchNews() {
+        viewModelScope.launch {
+            homeRepository.getNews()
+                .onStart {
+                    _news.value = null //TODO 加載畫面
+                }
+                .onEach { result ->
+                    // 仅在成功的情况下发射数据
+                    if (result is NetworkResult.Success) {
+                        _news.value = result.data
+                    } else if (result is NetworkResult.Error) {
+                        _news.value = null //TODO 錯誤訊息
+                    }
+                }
+                .catch { e ->
+                    _news.value = null //TODO 錯誤訊息
                 }
                 .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
         }
