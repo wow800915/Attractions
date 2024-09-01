@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.weiyou.attractions.R
+import com.weiyou.attractions.data.models.api.attractions.AttractionsOutput
+import com.weiyou.attractions.data.models.api.news.NewsOutput
 import com.weiyou.attractions.databinding.FragmentHomeBinding
 import com.weiyou.attractions.ui.MainActivity
 import com.weiyou.attractions.utils.listener.UpperBarRightBottonListener
@@ -27,6 +29,7 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels() // 使用 Hilt 注入 ViewModel
 
     private lateinit var homeAdapter: HomeAdapter
+    private val mediatorLiveData = MediatorLiveData<Pair<AttractionsOutput?, NewsOutput?>>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,26 +50,32 @@ class HomeFragment : Fragment() {
             homeViewModel.fetchNews()
         }
 
-        // 观察 ViewModel 中的 attractions 数据变化并更新 UI
-        homeViewModel.attractions.observe(viewLifecycleOwner) { attractions ->
-            attractions?.let {
+        mediatorLiveData.addSource(homeViewModel.attractions) { attractions ->
+            mediatorLiveData.value = attractions to mediatorLiveData.value?.second
+        }
+
+        mediatorLiveData.addSource(homeViewModel.news) { news ->
+            mediatorLiveData.value = mediatorLiveData.value?.first to news
+        }
+
+        mediatorLiveData.observe(viewLifecycleOwner) { (attractions, news) ->
+            if (attractions != null && news != null) {
                 binding.tvAttractionsCount.text = getString(
                     R.string.app_home_attractions_with_value,
                     attractions.total.toString()
                 )
-            }
-        }
 
-        homeViewModel.news.observe(viewLifecycleOwner) { news ->
-            news?.let {
                 val homeItems = mutableListOf<HomeItem>()
 
-                news.data.forEach {
-                    it
-                    homeItems.add(HomeNewsItem(it))
+                news.data.forEach { newsItem ->
+                    homeItems.add(HomeNewsItem(newsItem))
                 }
 
-                homeAdapter.setItems(homeItems) // 更新 RecyclerView 的數據
+                attractions.data.forEach { attraction ->
+                    homeItems.add(HomeAttraction(attraction))
+                }
+
+                homeAdapter.setItems(homeItems)  // 更新 RecyclerView 的數據
             }
         }
 

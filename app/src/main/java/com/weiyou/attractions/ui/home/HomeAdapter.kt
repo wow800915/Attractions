@@ -21,7 +21,7 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class AttractionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//        val nameTextView: TextView = view.findViewById(R.id.tvAttractionName)
+        val tvTitle: TextView = view.findViewById(R.id.tv_title)
 //        val addressTextView: TextView = view.findViewById(R.id.tvAttractionAddress)
     }
 
@@ -50,8 +50,8 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is AttractionViewHolder -> {
-//                val item = items[position] as HomeAttraction
-//                holder.nameTextView.text = item.attraction.name
+                val item = items[position] as HomeAttraction
+                holder.tvTitle.text = item.attraction.name
 //                holder.addressTextView.text = item.attraction.address
             }
 
