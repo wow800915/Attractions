@@ -68,24 +68,28 @@ class HomeFragment : Fragment() {
         val bottonListener = object : UpperBarRightBottonListener {
             override fun performAction() {
                 if (isAdded) {
-                    val languages = resources.getStringArray(R.array.language_options)
-                    val languageValues = resources.getStringArray(R.array.language_values)
-
-                    val builder = AlertDialog.Builder(requireContext())
-                    builder.setTitle(R.string.change_language)
-                        .setItems(languages) { dialog, which ->
-                            val selectedLanguage = languageValues[which]
-
-                            viewLifecycleOwner.lifecycleScope.launch {
-                                homeViewModel.saveLanguage(selectedLanguage)
-                            }
-                        }
-                    builder.create().show()
+                    showLanguagePickerDialog()
                 }
             }
         }
 
         (activity as? MainActivity)?.setUpperBar(title, null, bottonListener)
+    }
+
+    private fun showLanguagePickerDialog() {
+        val languages = resources.getStringArray(R.array.language_options)
+        val languageValues = resources.getStringArray(R.array.language_values)
+
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(R.string.change_language)
+            .setItems(languages) { dialog, which ->
+                val selectedLanguage = languageValues[which]
+
+                viewLifecycleOwner.lifecycleScope.launch {
+                    homeViewModel.saveLanguage(selectedLanguage)
+                }
+            }
+        builder.create().show()
     }
 
     override fun onDestroyView() {
