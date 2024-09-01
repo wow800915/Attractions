@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.fetchAttractions()
+            homeViewModel.fetchAttractions()//TODO 如果資料太多 可以考慮用一次拿一些page 然後用recycleView的loadmore
             homeViewModel.fetchNews()
         }
 
@@ -67,7 +67,8 @@ class HomeFragment : Fragment() {
 
                 val homeItems = mutableListOf<HomeItem>()
 
-                news.data.forEach { newsItem ->
+                // 只選擇前三個新聞項目添加到列表
+                news.data.take(3).forEach { newsItem ->
                     homeItems.add(HomeNewsItem(newsItem))
                 }
 
