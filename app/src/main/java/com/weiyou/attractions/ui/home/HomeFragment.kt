@@ -2,12 +2,10 @@ package com.weiyou.attractions.ui.home
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,7 +15,6 @@ import com.weiyou.attractions.ui.MainActivity
 import com.weiyou.attractions.utils.listener.UpperBarRightBottonListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -51,9 +48,12 @@ class HomeFragment : Fragment() {
         }
 
         // 观察 ViewModel 中的 attractions 数据变化并更新 UI
-        homeViewModel.attractionResponse.observe(viewLifecycleOwner) { attractions ->
+        homeViewModel.attractions.observe(viewLifecycleOwner) { attractions ->
             attractions?.let {
-                binding.tvHome.text = attractions.toString() // 假设使用 address 更新 UI，你可以根据需求调整
+                binding.tvHome.text = getString(
+                    R.string.app_home_attractions_with_value,
+                    attractions.total.toString()
+                )
             }
         }
 

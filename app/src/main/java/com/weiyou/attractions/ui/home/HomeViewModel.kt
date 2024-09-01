@@ -23,22 +23,29 @@ class HomeViewModel @Inject constructor(
     private val _text = MutableLiveData<String>()
     val text: LiveData<String> = _text
 
-    private val _attractionResponse = MutableLiveData<NetworkResult<AttractionsResponse>?>()
-    val attractionResponse: LiveData<NetworkResult<AttractionsResponse>?> = _attractionResponse
+    private val _attractions = MutableLiveData<AttractionsResponse?>()
+    val attractions: LiveData<AttractionsResponse?> = _attractions
+
 
     suspend fun fetchAttractions() {
-        homeRepository.getAttractions()
-            .onStart {
-                // 可以在这里发射一个加载状态
-            }
-            .onEach { response ->
-                _attractionResponse.value = response
-            }
-            .catch { e ->
-                // 处理异常，例如发射一个错误状态或者将错误记录下来
-                // _attractionResponse.value = null // 如果需要在错误时清空数据
-            }
-            .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
+        viewModelScope.launch {
+            homeRepository.getAttractions()
+                .onStart {
+                    _attractions.value = null //TODO 加載畫面
+                }
+                .onEach { result ->
+                    // 仅在成功的情况下发射数据
+                    if (result is NetworkResult.Success) {
+                        _attractions.value = result.data
+                    } else if (result is NetworkResult.Error) {
+                        _attractions.value = null //TODO 錯誤訊息
+                    }
+                }
+                .catch { e ->
+                    _attractions.value = null //TODO 錯誤訊息
+                }
+                .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
+        }
     }
 
     suspend fun saveLanguage(language: String) {

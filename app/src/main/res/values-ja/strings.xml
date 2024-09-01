@@ -3,6 +3,7 @@
     <string name="app_name">アトラクションズ</string>
     <string name="app_home_title">台北を探索</string>
     <string name="change_language">言語を変更</string>
+    <string name="app_home_attractions_with_value">台北市の観光地 1/%s</string>
 
     <string-array name="language_options">
         <item>英語</item>  <!-- 英文 -->
