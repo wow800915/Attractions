@@ -147,6 +147,10 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+
+        mediatorLiveData.removeSource(homeViewModel.attractions)
+        mediatorLiveData.removeSource(homeViewModel.news)
+
         _binding = null
     }
 }

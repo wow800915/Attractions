@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.weiyou.attractions.R
 import com.weiyou.attractions.databinding.FragmentNewsBinding
+import com.weiyou.attractions.ui.MainActivity
+import com.weiyou.attractions.utils.listener.UpperBarBackBottonListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,8 +29,24 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setUpperBar()
+
         val url = arguments?.getString("url")
-        Toast.makeText(context, url, Toast.LENGTH_LONG).show()
+    }
+
+    private fun setUpperBar() {
+        val title = getString(R.string.app_home_title) // 替换 your_string_id 为你的字符串资源ID
+
+        val backListener = object : UpperBarBackBottonListener {
+            override fun performAction() {
+                if (isAdded) {
+                    findNavController().popBackStack()
+                }
+            }
+        }
+
+        (activity as? MainActivity)?.setUpperBar(title, backListener, null)
     }
 
     override fun onDestroyView() {
