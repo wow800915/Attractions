@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.lifecycleScope
@@ -109,7 +108,9 @@ class HomeFragment : Fragment() {
 
         homeAdapter.setOnNewsItemClickListener(object : HomeAdapter.OnNewsItemClickListener {
             override fun onNewsItemClick(url: String) {
-                Toast.makeText(context, url, Toast.LENGTH_SHORT).show()
+                val bundle = Bundle()
+                bundle.putString("url", url)
+                findNavController().navigate(R.id.action_homeFragment_to_newsFragment, bundle)
             }
         })
     }

@@ -18,5 +18,9 @@
         android:id="@+id/newsFragment"
         android:name="com.weiyou.attractions.ui.news.NewsFragment"
         android:label="News"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
 </navigation>
