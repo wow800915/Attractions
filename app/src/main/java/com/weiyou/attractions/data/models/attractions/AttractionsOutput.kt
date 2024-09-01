@@ -1,4 +1,4 @@
-package com.weiyou.attractions.data.models
+package com.weiyou.attractions.data.models.attractions
 
 data class AttractionsOutput(
     val total: Int,

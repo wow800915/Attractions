@@ -1,6 +1,6 @@
 package com.weiyou.attractions.data.network
 
-import com.weiyou.attractions.data.models.AttractionsOutput
+import com.weiyou.attractions.data.models.attractions.AttractionsOutput
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
