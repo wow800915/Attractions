@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
 
         // 使用 lifecycleScope 启动协程来调用 suspend 函数
         viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.fetchAttractions("zh-cn")
+            homeViewModel.fetchAttractions()
         }
 
         // 觀察 ViewModel 中的數據變化並更新 UI

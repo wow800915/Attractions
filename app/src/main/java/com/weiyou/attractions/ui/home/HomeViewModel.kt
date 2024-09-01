@@ -26,8 +26,8 @@ class HomeViewModel @Inject constructor(
     private val _attractionResponse = MutableLiveData<NetworkResult<AttractionsResponse>?>()
     val attractionResponse: LiveData<NetworkResult<AttractionsResponse>?> = _attractionResponse
 
-    suspend fun fetchAttractions(lang: String) {
-        homeRepository.getAttractions(lang)
+    suspend fun fetchAttractions() {
+        homeRepository.getAttractions()
             .onStart {
                 // 可以在这里发射一个加载状态
             }
