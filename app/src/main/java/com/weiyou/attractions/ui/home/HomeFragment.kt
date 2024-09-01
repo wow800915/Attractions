@@ -108,8 +108,8 @@ class HomeFragment : Fragment() {
         binding.rvHome.layoutManager = LinearLayoutManager(context)
 
         homeAdapter.setOnNewsItemClickListener(object : HomeAdapter.OnNewsItemClickListener {
-            override fun onNewsItemClick(message: String) {
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            override fun onNewsItemClick(url: String) {
+                Toast.makeText(context, url, Toast.LENGTH_SHORT).show()
             }
         })
     }

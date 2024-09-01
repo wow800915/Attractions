@@ -91,7 +91,7 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val item = items[position] as HomeNewsItem
                 holder.tvTitle.text = item.newsItem.title
                 holder.itemView.setOnClickListener {
-                    newsItemClickListener?.onNewsItemClick("Clicked News: ${item.newsItem.title}")
+                    newsItemClickListener?.onNewsItemClick(item.newsItem.url)
                 }
             }
         }
@@ -102,6 +102,6 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     interface OnNewsItemClickListener {
-        fun onNewsItemClick(message: String)
+        fun onNewsItemClick(url: String)
     }
 }
