@@ -67,10 +67,26 @@ class HomeFragment : Fragment() {
 
                 val homeItems = mutableListOf<HomeItem>()
 
+                homeItems.add(
+                    HomeTitle(
+                        getString(
+                            R.string.app_home_news
+                        )
+                    )
+                )
+
                 // 只選擇前三個新聞項目添加到列表
                 news.data.take(3).forEach { newsItem ->
                     homeItems.add(HomeNewsItem(newsItem))
                 }
+
+                homeItems.add(
+                    HomeTitle(
+                        getString(
+                            R.string.app_home_attractions
+                        )
+                    )
+                )
 
                 attractions.data.forEach { attraction ->
                     homeItems.add(HomeAttraction(attraction))

@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.weiyou.attractions.R
+import com.weiyou.attractions.ui.home.HomeItem.Companion.VIEW_TYPE_ATTRACTION
+import com.weiyou.attractions.ui.home.HomeItem.Companion.VIEW_TYPE_NEWS_ITEM
+import com.weiyou.attractions.ui.home.HomeItem.Companion.VIEW_TYPE_TITLE
 
 class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<HomeItem>()
@@ -20,25 +23,32 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items[position].homeType
     }
 
+    class TitleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvTitle: TextView = view.findViewById(R.id.tv_title)
+    }
+
     class AttractionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tv_title)
-//        val addressTextView: TextView = view.findViewById(R.id.tvAttractionAddress)
     }
 
     class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tv_title)
-//        val descriptionTextView: TextView = view.findViewById(R.id.tvNewsDescription)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            2 -> {
+            VIEW_TYPE_TITLE -> {
+                val view = inflater.inflate(R.layout.item_home_title, parent, false)
+                TitleViewHolder(view)
+            }
+
+            VIEW_TYPE_NEWS_ITEM -> {
                 val view = inflater.inflate(R.layout.item_home_news, parent, false)
                 NewsViewHolder(view)
             }
 
-            4 -> {
+            VIEW_TYPE_ATTRACTION -> {
                 val view = inflater.inflate(R.layout.item_home_attraction, parent, false)
                 AttractionViewHolder(view)
             }
@@ -49,10 +59,14 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
+            is TitleViewHolder -> {
+                val item = items[position] as HomeTitle
+                holder.tvTitle.text = item.title
+            }
+
             is AttractionViewHolder -> {
                 val item = items[position] as HomeAttraction
                 holder.tvTitle.text = item.attraction.name
-//                holder.addressTextView.text = item.attraction.address
             }
 
             is NewsViewHolder -> {

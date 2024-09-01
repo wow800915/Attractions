@@ -4,6 +4,8 @@
     <string name="app_home_title">Explore Taipei</string>
     <string name="app_home_choose_language">Choose Language</string>
     <string name="app_home_attractions_with_value">Taipei City Attractions 1/%s</string>
+    <string name="app_home_news">Latest News</string>
+    <string name="app_home_attractions">Recreational Attractions</string>
 
     <string-array name="language_options">
         <item>English</item>
