@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">アトラクションズ</string>
+    <string name="app_home_title">台北を探索</string>
+    <string name="change_language">言語を変更</string>
+
+    <string-array name="language_options">
+        <item>英語</item>  <!-- 英文 -->
+        <item>簡体字中国語</item>  <!-- 简体中文 -->
+        <item>繁体字中国語</item>  <!-- 正體中文 -->
+        <item>日本語</item>  <!-- 日文 -->
+        <item>韓国語</item>  <!-- 韩文 -->
+        <item>スペイン語</item>  <!-- 西班牙文 -->
+        <item>インドネシア語</item>  <!-- 印尼文 -->
+        <item>タイ語</item>  <!-- 泰文 -->
+        <item>ベトナム語</item>  <!-- 越南文 -->
+    </string-array>
+    <string-array name="language_values">
+        <item>en</item>
+        <item>zh-cn</item>
+        <item>zh-tw</item>
+        <item>ja</item>
+        <item>ko</item>
+        <item>es</item>
+        <item>id</item>
+        <item>th</item>
+        <item>vi</item>
+    </string-array>
+</resources>
