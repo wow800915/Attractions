@@ -7,11 +7,22 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.weiyou.attractions.R
+import com.weiyou.attractions.ui.attraction.AttractionItem.Companion.VIEW_TYPE_IMAGE
 
-class AttractionAdapter : RecyclerView.Adapter<AttractionAdapter.ImageViewHolder>() {
+class AttractionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val items = mutableListOf<AttractionItem>()
 
     // Mutable list to hold image URLs
-    private var imageUrls: List<String> = emptyList()
+
+    fun setItems(attractionItems: List<AttractionItem>) {
+        items.clear()
+        items.addAll(attractionItems)
+        notifyDataSetChanged()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return items[position].attractionType
+    }
 
     // ViewHolder class to hold references to each item's views
     class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -19,29 +30,31 @@ class AttractionAdapter : RecyclerView.Adapter<AttractionAdapter.ImageViewHolder
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        // Inflate the layout for each item
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_attraction_image, parent, false)
-        return ImageViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            VIEW_TYPE_IMAGE -> {
+                val view = inflater.inflate(R.layout.item_attraction_image, parent, false)
+                ImageViewHolder(view)
+            }
+
+            else -> throw IllegalArgumentException("Invalid view type")
+        }
     }
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        // Bind the data to each view
-        val imageUrl = imageUrls[position]
-        // Use Glide or any other image loading library to load the image
-        Glide.with(holder.ivImage.context)
-            .load(imageUrl)
-            .into(holder.ivImage)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is ImageViewHolder -> {
+                val item = items[position] as AttractionImage
+                Glide.with(holder.ivImage.context)
+                    .load(item.url)
+                    .into(holder.ivImage)
+            }
+
+        }
     }
 
     override fun getItemCount(): Int {
         // Return the size of the dataset
-        return imageUrls.size
-    }
-
-    // Method to set the data for the adapter
-    fun setImageUrls(imageUrls: List<String>) {
-        this.imageUrls = imageUrls
-        notifyDataSetChanged()
+        return items.size
     }
 }

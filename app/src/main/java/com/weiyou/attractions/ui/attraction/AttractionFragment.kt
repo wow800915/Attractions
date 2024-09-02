@@ -13,6 +13,7 @@ import com.weiyou.attractions.data.models.api.attractions.Attraction
 import com.weiyou.attractions.data.models.api.attractions.Image
 import com.weiyou.attractions.databinding.FragmentAttractionBinding
 import com.weiyou.attractions.ui.MainActivity
+import com.weiyou.attractions.ui.home.HomeItem
 import com.weiyou.attractions.utils.listener.UpperBarBackBottonListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +38,7 @@ class AttractionFragment : Fragment() {
 
         val attraction: Attraction = args.attraction
         setUpperBar(attraction.name)
-        setupRecycerVIew(attraction.images)
+        setupRecycerVIew(attraction)
 
         binding.tvOpenTime.text = attraction.open_time // 例如显示景点名称
 
@@ -63,11 +64,16 @@ class AttractionFragment : Fragment() {
         (activity as? MainActivity)?.setUpperBar(title, backListener, null)
     }
 
-    private fun setupRecycerVIew(imageList: List<Image>) {
+    private fun setupRecycerVIew(attraction: Attraction) {
         binding.rvAttraction.layoutManager = LinearLayoutManager(context)
-        val imageUrls = imageList.map { it.src }
+        val attractionItems = mutableListOf<AttractionItem>()
+
+        attraction.images.forEach {
+            attractionItems.add(AttractionImage(it.src))
+        }
+
         val adapter = AttractionAdapter()
-        adapter.setImageUrls(imageUrls)
+        adapter.setItems(attractionItems)
         binding.rvAttraction.adapter = adapter
     }
 
