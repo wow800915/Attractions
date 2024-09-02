@@ -44,61 +44,26 @@ class HomeFragment : Fragment() {
 
         setUpperBar()
         setupRecyclerView()
+        setObservers()
 
         viewLifecycleOwner.lifecycleScope.launch {
             homeViewModel.fetchAttractions()//TODO 如果資料太多 可以考慮用一次拿一些page 然後用recycleView的loadmore
             homeViewModel.fetchNews()
         }
+    }
 
-        mediatorLiveData.addSource(homeViewModel.attractions) { attractions ->
-            mediatorLiveData.value = attractions to mediatorLiveData.value?.second
-        }
+    private fun setUpperBar() {
+        val title = getString(R.string.app_home_title) // 替换 your_string_id 为你的字符串资源ID
 
-        mediatorLiveData.addSource(homeViewModel.news) { news ->
-            mediatorLiveData.value = mediatorLiveData.value?.first to news
-        }
-
-        mediatorLiveData.observe(viewLifecycleOwner) { (attractions, news) ->
-            if (attractions != null && news != null) {
-                binding.tvAttractionsCount.text = getString(
-                    R.string.app_home_attractions_with_value,
-                    attractions.total.toString()
-                )
-
-                val homeItems = mutableListOf<HomeItem>()
-
-                homeItems.add(
-                    HomeTitle(
-                        getString(
-                            R.string.app_home_news
-                        )
-                    )
-                )
-
-                // 只選擇前三個新聞項目添加到列表
-                news.data.take(3).forEach { newsItem ->
-                    homeItems.add(HomeNewsItem(newsItem))
+        val bottonListener = object : UpperBarRightBottonListener {
+            override fun performAction() {
+                if (isAdded) {
+                    showLanguagePickerDialog()
                 }
-
-                homeItems.add(
-                    HomeTitle(
-                        getString(
-                            R.string.app_home_attractions
-                        )
-                    )
-                )
-
-                attractions.data.forEach { attraction ->
-                    homeItems.add(HomeAttraction(attraction))
-                }
-
-                homeAdapter.setItems(homeItems)  // 更新 RecyclerView 的數據
             }
         }
 
-        binding.tvAttractionsCount.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_newsFragment)
-        }
+        (activity as? MainActivity)?.setUpperBar(title, null, bottonListener)
     }
 
     private fun setupRecyclerView() {
@@ -115,18 +80,55 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun setUpperBar() {
-        val title = getString(R.string.app_home_title) // 替换 your_string_id 为你的字符串资源ID
-
-        val bottonListener = object : UpperBarRightBottonListener {
-            override fun performAction() {
-                if (isAdded) {
-                    showLanguagePickerDialog()
-                }
-            }
+    private fun setObservers() {
+        mediatorLiveData.addSource(homeViewModel.attractions) { attractions ->
+            mediatorLiveData.value = attractions to mediatorLiveData.value?.second
         }
 
-        (activity as? MainActivity)?.setUpperBar(title, null, bottonListener)
+        mediatorLiveData.addSource(homeViewModel.news) { news ->
+            mediatorLiveData.value = mediatorLiveData.value?.first to news
+        }
+
+        mediatorLiveData.observe(viewLifecycleOwner) { (attractions, news) ->
+            if (attractions != null && news != null) {
+                binding.tvAttractionsCount.text = getString(
+                    R.string.app_home_attractions_with_value,
+                    attractions.total.toString()
+                )
+                setItemIntoRV(attractions, news)
+            }
+        }
+    }
+
+    private fun setItemIntoRV(attractions: AttractionsOutput, news: NewsOutput) {
+        val homeItems = mutableListOf<HomeItem>()
+
+        homeItems.add(
+            HomeTitle(
+                getString(
+                    R.string.app_home_news
+                )
+            )
+        )
+
+        // 只選擇前三個新聞項目添加到列表
+        news.data.take(3).forEach { newsItem ->
+            homeItems.add(HomeNewsItem(newsItem))
+        }
+
+        homeItems.add(
+            HomeTitle(
+                getString(
+                    R.string.app_home_attractions
+                )
+            )
+        )
+
+        attractions.data.forEach { attraction ->
+            homeItems.add(HomeAttraction(attraction))
+        }
+
+        homeAdapter.setItems(homeItems)  // 更新 RecyclerView 的數據
     }
 
     private fun showLanguagePickerDialog() {
