@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.weiyou.attractions.R
 import com.weiyou.attractions.data.models.api.attractions.Attraction
+import com.weiyou.attractions.data.models.api.attractions.Image
 import com.weiyou.attractions.databinding.FragmentAttractionBinding
 import com.weiyou.attractions.ui.MainActivity
 import com.weiyou.attractions.utils.listener.UpperBarBackBottonListener
@@ -35,10 +37,11 @@ class AttractionFragment : Fragment() {
 
         val attraction: Attraction = args.attraction
         setUpperBar(attraction.name)
+        setupRecycerVIew(attraction.images)
 
         binding.tvOpenTime.text = attraction.open_time // 例如显示景点名称
 
-        binding.tvUrl.text = attraction.url
+        binding.tvUrl.text = attraction.official_site
         binding.tvUrl.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("title", attraction.name)
@@ -58,6 +61,14 @@ class AttractionFragment : Fragment() {
         }
 
         (activity as? MainActivity)?.setUpperBar(title, backListener, null)
+    }
+
+    private fun setupRecycerVIew(imageList: List<Image>) {
+        binding.rvAttraction.layoutManager = LinearLayoutManager(context)
+        val imageUrls = imageList.map { it.src }
+        val adapter = AttractionAdapter()
+        adapter.setImageUrls(imageUrls)
+        binding.rvAttraction.adapter = adapter
     }
 
     override fun onDestroyView() {
