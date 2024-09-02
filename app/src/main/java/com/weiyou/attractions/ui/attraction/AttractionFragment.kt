@@ -40,15 +40,15 @@ class AttractionFragment : Fragment() {
         setUpperBar(attraction.name)
         setupRecycerVIew(attraction)
 
-        binding.tvOpenTime.text = attraction.open_time // 例如显示景点名称
-
-        binding.tvUrl.text = attraction.official_site
-        binding.tvUrl.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("title", attraction.name)
-            bundle.putString("url", attraction.url)
-            findNavController().navigate(R.id.action_attractionFragment_to_webViewFragment, bundle)
-        }
+//        binding.tvOpenTime.text = attraction.open_time // 例如显示景点名称
+//
+//        binding.tvUrl.text = attraction.official_site
+//        binding.tvUrl.setOnClickListener {
+//            val bundle = Bundle()
+//            bundle.putString("title", attraction.name)
+//            bundle.putString("url", attraction.url)
+//            findNavController().navigate(R.id.action_attractionFragment_to_webViewFragment, bundle)
+//        }
 
     }
 
@@ -71,6 +71,8 @@ class AttractionFragment : Fragment() {
         attraction.images.forEach {
             attractionItems.add(AttractionImage(it.src))
         }
+
+        attractionItems.add(AttractionInfo(attraction))
 
         val adapter = AttractionAdapter()
         adapter.setItems(attractionItems)
