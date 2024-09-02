@@ -35,6 +35,7 @@ class AttractionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class InfoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvOpenTime: TextView = view.findViewById(R.id.tv_open_time)
         val tvUrl: TextView = view.findViewById(R.id.tv_url)
     }
 
@@ -66,7 +67,14 @@ class AttractionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             is InfoViewHolder -> {
                 val item = items[position] as AttractionInfo
-                holder.tvUrl.text = item.attraction.url
+                holder.tvOpenTime.text = holder.itemView.context.getString(
+                    R.string.app_attraction_open_time_with_value,
+                    item.attraction.open_time
+                )
+                holder.tvUrl.text = holder.itemView.context.getString(
+                    R.string.app_attraction_web_url_with_value,
+                    item.attraction.url
+                )
                 holder.tvUrl.setOnClickListener {
                     urlClickListener?.onUrlClick(item.attraction.url)
                 }
