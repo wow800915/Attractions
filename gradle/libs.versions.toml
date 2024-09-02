@@ -13,6 +13,7 @@ hilt = "2.50"
 navigation = "2.7.1"
 retrofit = "2.9.0"
 gson = "2.9.0"
+safeargs = "2.5.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,4 +35,5 @@ retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ver
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt-android-gradle-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+androidx-navigation-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs" }
 

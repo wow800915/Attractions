@@ -82,10 +82,11 @@ class HomeFragment : Fragment() {
 
         homeAdapter.setOnAttractionClickListener(object : HomeAdapter.OnAttractionClickListener {
             override fun onAttractionClick(attraction: Attraction) {
-                //TODO 要把attraction送過去AttractionFragment
-//                val bundle = Bundle()
-//                bundle.putString("url", Attraction)
-                findNavController().navigate(R.id.action_homeFragment_to_attractionFragment)
+                //位置A
+                val bundle = Bundle().apply {
+                    putParcelable("attraction", attraction) // 确保 Attraction 实现 Parcelable 接口
+                }
+                findNavController().navigate(R.id.action_homeFragment_to_attractionFragment, bundle)
             }
         })
     }

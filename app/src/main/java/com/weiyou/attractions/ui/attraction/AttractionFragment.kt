@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.weiyou.attractions.R
+import com.weiyou.attractions.data.models.api.attractions.Attraction
 import com.weiyou.attractions.databinding.FragmentAttractionBinding
 import com.weiyou.attractions.ui.MainActivity
 import com.weiyou.attractions.utils.listener.UpperBarBackBottonListener
@@ -18,6 +20,8 @@ class AttractionFragment : Fragment() {
     private var _binding: FragmentAttractionBinding? = null
     private val binding get() = _binding!!
 
+    private val args: AttractionFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,9 +32,12 @@ class AttractionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//            binding.tvOpenTime.text = attraction.name // 例如
 
         setUpperBar()
-//        binding.tvOpenTime
+
+        val attraction: Attraction = args.attraction
+        binding.tvOpenTime.text = attraction.name // 例如显示景点名称
 
     }
 

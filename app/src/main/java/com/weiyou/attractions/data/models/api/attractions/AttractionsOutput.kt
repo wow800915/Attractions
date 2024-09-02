@@ -1,10 +1,14 @@
 package com.weiyou.attractions.data.models.api.attractions
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 data class AttractionsOutput(
     val total: Int,
     val data: List<Attraction>
 )
 
+@Parcelize
 data class Attraction(
     val id: Int,
     val name: String,
@@ -35,40 +39,48 @@ data class Attraction(
     val images: List<Image>,
     val files: List<File>,
     val links: List<Link>
-)
+) : Parcelable // 让 Attraction 类实现 Parcelable 接口
 
+// 如果 Category, Target, Service, Friendly, Image, File, Link 类也需要传递，可以同样实现 Parcelable 接口
+@Parcelize
 data class Category(
     val id: Int,
     val name: String
-)
+) : Parcelable
 
+@Parcelize
 data class Target(
     val id: Int,
     val name: String
-)
+) : Parcelable
 
+@Parcelize
 data class Service(
     val id: Int,
     val name: String
-)
+) : Parcelable
 
+@Parcelize
 data class Friendly(
     val id: Int,
     val name: String
-)
+) : Parcelable
 
+@Parcelize
 data class Image(
     val src: String,
     val subject: String,
     val ext: String
-)
+) : Parcelable
 
+@Parcelize
 data class File(
     val src: String,
     val subject: String
-)
+) : Parcelable
 
+@Parcelize
 data class Link(
     val src: String,
     val subject: String
-)
+) : Parcelable
