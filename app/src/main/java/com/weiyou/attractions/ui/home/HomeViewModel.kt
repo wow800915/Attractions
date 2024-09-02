@@ -27,22 +27,32 @@ class HomeViewModel @Inject constructor(
     private val _news = MutableLiveData<NewsOutput?>()
     val news: LiveData<NewsOutput?> = _news
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
+
     suspend fun fetchAttractions(page: Int) {
         viewModelScope.launch {
             homeRepository.getAttractions(page)
                 .onStart {
-                    _attractions.value = null //TODO 加載畫面
+                    _attractions.value = null
+                    _isLoading.value = true
                 }
                 .onEach { result ->
-                    // 仅在成功的情况下发射数据
+                    _isLoading.value = false
                     if (result is NetworkResult.Success) {
                         _attractions.value = result.data
                     } else if (result is NetworkResult.Error) {
-                        _attractions.value = null //TODO 錯誤訊息
+                        _attractions.value = null
+                        _errorMessage.value = result.error?.message
                     }
                 }
                 .catch { e ->
-                    _attractions.value = null //TODO 錯誤訊息
+                    _isLoading.value = false
+                    _attractions.value = null
+                    _errorMessage.value = e.message
                 }
                 .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
         }
@@ -52,18 +62,22 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             homeRepository.getNews()
                 .onStart {
-                    _news.value = null //TODO 加載畫面
+                    _news.value = null
+                    _isLoading.value = true
                 }
                 .onEach { result ->
-                    // 仅在成功的情况下发射数据
+                    _isLoading.value = false
                     if (result is NetworkResult.Success) {
                         _news.value = result.data
                     } else if (result is NetworkResult.Error) {
-                        _news.value = null //TODO 錯誤訊息
+                        _news.value = null
+                        _errorMessage.value = result.error?.message
                     }
                 }
                 .catch { e ->
-                    _news.value = null //TODO 錯誤訊息
+                    _isLoading.value = false
+                    _news.value = null
+                    _errorMessage.value = e.message
                 }
                 .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
         }

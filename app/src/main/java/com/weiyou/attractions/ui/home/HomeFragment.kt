@@ -142,6 +142,18 @@ class HomeFragment : Fragment() {
                 setItemIntoRV(attractions, news)
             }
         }
+
+        homeViewModel.isLoading.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+
+        homeViewModel.errorMessage.observe(viewLifecycleOwner) {
+            //TODO 處理錯誤訊息
+        }
     }
 
     private fun setItemIntoRV(attractions: AttractionsOutput, news: NewsOutput) {

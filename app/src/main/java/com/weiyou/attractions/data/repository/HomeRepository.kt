@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-
 class HomeRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val languageDataStore: LanguageDataStore
@@ -25,8 +24,7 @@ class HomeRepository @Inject constructor(
             .filterNotNull() // 过滤空值
             .flatMapLatest { lang -> // 使用最新的语言设置请求数据
                 flow {
-                    emit(NetworkResult.Loading)
-                    val result = remoteDataSource.getAttractions(lang,page)
+                    val result = remoteDataSource.getAttractions(lang, page)
                     emit(result)
                 }.flowOn(Dispatchers.IO)
             }
@@ -37,7 +35,6 @@ class HomeRepository @Inject constructor(
             .filterNotNull() // 过滤空值
             .flatMapLatest { lang -> // 使用最新的语言设置请求数据
                 flow {
-                    emit(NetworkResult.Loading)
                     val result = remoteDataSource.getNews(lang)
                     emit(result)
                 }.flowOn(Dispatchers.IO)
