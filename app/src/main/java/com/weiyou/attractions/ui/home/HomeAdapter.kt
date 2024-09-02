@@ -19,6 +19,12 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var newsItemClickListener: OnNewsItemClickListener? = null
     private var attractionClickListener: OnAttractionClickListener? = null
 
+    // 添加新項目的方法
+    fun addItem(newItem: HomeItem) {
+        items.add(newItem)
+        notifyItemInserted(items.size - 1) // 通知 RecyclerView 有新項目插入
+    }
+
     fun setItems(newItems: List<HomeItem>) {
         items.clear()
         items.addAll(newItems)

@@ -32,8 +32,8 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
         }
     }
 
-    suspend fun getAttractions(lang: String): NetworkResult<AttractionsOutput> {
-        return getResponse(request = { apiService.getAttractions(lang) })
+    suspend fun getAttractions(lang: String, page: Int): NetworkResult<AttractionsOutput> {
+        return getResponse(request = { apiService.getAttractions(lang = lang, page = page) })
     }
 
     suspend fun getNews(lang: String): NetworkResult<NewsOutput> {

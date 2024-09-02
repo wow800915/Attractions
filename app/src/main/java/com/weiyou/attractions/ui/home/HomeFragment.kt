@@ -32,6 +32,8 @@ class HomeFragment : Fragment() {
     private lateinit var homeAdapter: HomeAdapter
     private val mediatorLiveData = MediatorLiveData<Pair<AttractionsOutput?, NewsOutput?>>()
 
+    private var isFirstLoad = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,7 +50,7 @@ class HomeFragment : Fragment() {
         setObservers()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.fetchAttractions()//TODO 如果資料太多 可以考慮用一次拿一些page 然後用recycleView的loadmore
+            homeViewModel.fetchAttractions(1)//TODO 如果資料太多 可以考慮用一次拿一些page 然後用recycleView的loadmore
             homeViewModel.fetchNews()
         }
     }
@@ -111,34 +113,40 @@ class HomeFragment : Fragment() {
     }
 
     private fun setItemIntoRV(attractions: AttractionsOutput, news: NewsOutput) {
-        val homeItems = mutableListOf<HomeItem>()
+        if (isFirstLoad) {
+            val homeItems = mutableListOf<HomeItem>()
 
-        homeItems.add(
-            HomeTitle(
-                getString(
-                    R.string.app_home_news
+            homeItems.add(
+                HomeTitle(
+                    getString(
+                        R.string.app_home_news
+                    )
                 )
             )
-        )
 
-        // 只選擇前三個新聞項目添加到列表
-        news.data.take(3).forEach { newsItem ->
-            homeItems.add(HomeNewsItem(newsItem))
-        }
+            // 只選擇前三個新聞項目添加到列表
+            news.data.take(3).forEach { newsItem ->
+                homeItems.add(HomeNewsItem(newsItem))
+            }
 
-        homeItems.add(
-            HomeTitle(
-                getString(
-                    R.string.app_home_attractions
+            homeItems.add(
+                HomeTitle(
+                    getString(
+                        R.string.app_home_attractions
+                    )
                 )
             )
-        )
 
-        attractions.data.forEach { attraction ->
-            homeItems.add(HomeAttraction(attraction))
+
+            attractions.data.forEach { attraction ->
+                homeItems.add(HomeAttraction(attraction))
+            }
+
+            homeAdapter.setItems(homeItems)
+            isFirstLoad = false
+        } else {
+
         }
-
-        homeAdapter.setItems(homeItems)  // 更新 RecyclerView 的數據
     }
 
     private fun showLanguagePickerDialog() {

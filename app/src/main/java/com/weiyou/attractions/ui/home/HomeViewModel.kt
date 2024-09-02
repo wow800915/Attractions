@@ -27,9 +27,9 @@ class HomeViewModel @Inject constructor(
     private val _news = MutableLiveData<NewsOutput?>()
     val news: LiveData<NewsOutput?> = _news
 
-    suspend fun fetchAttractions() {
+    suspend fun fetchAttractions(page: Int) {
         viewModelScope.launch {
-            homeRepository.getAttractions()
+            homeRepository.getAttractions(page)
                 .onStart {
                     _attractions.value = null //TODO 加載畫面
                 }

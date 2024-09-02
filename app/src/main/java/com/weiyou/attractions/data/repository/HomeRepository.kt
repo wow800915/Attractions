@@ -20,13 +20,13 @@ class HomeRepository @Inject constructor(
 ) {
 
     // API 调用获取景点信息
-    suspend fun getAttractions(): Flow<NetworkResult<AttractionsOutput>> {
+    suspend fun getAttractions(page: Int): Flow<NetworkResult<AttractionsOutput>> {
         return languageDataStore.selectedLanguage
             .filterNotNull() // 过滤空值
             .flatMapLatest { lang -> // 使用最新的语言设置请求数据
                 flow {
                     emit(NetworkResult.Loading)
-                    val result = remoteDataSource.getAttractions(lang)
+                    val result = remoteDataSource.getAttractions(lang,page)
                     emit(result)
                 }.flowOn(Dispatchers.IO)
             }
