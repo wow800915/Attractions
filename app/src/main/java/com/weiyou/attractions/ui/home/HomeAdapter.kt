@@ -43,6 +43,7 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class AttractionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tv_title)
+        val tvIntroduction: TextView = view.findViewById(R.id.tv_introduction)
         val ivAttraction: ImageView = view.findViewById(R.id.iv_attraction)
     }
 
@@ -83,7 +84,7 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is AttractionViewHolder -> {
                 val item = items[position] as HomeAttraction
                 holder.tvTitle.text = item.attraction.name
-                holder.ivAttraction
+                holder.tvIntroduction.text = item.attraction.introduction
 
                 if (!item.attraction.images.isNullOrEmpty() && item.attraction.images[0].src != null) {
                     Glide.with(holder.itemView)
