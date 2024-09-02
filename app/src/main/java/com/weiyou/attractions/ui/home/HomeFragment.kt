@@ -213,6 +213,10 @@ class HomeFragment : Fragment() {
         mediatorLiveData.removeSource(homeViewModel.attractions)
         mediatorLiveData.removeSource(homeViewModel.news)
 
+        isFirstLoad = true
+        attractionTotalAmount = 0
+        currentAttractionPage = 1
+
         _binding = null
     }
 }
