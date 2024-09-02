@@ -4,7 +4,7 @@
 
     <string name="app_home_title">台北を探索</string>
     <string name="app_home_choose_language">言語を選択</string>
-    <string name="app_home_attractions_with_value">台北市の観光地 1/%s</string>
+    <string name="app_home_attractions_with_value">台北市の観光地 %1$d/%2$d</string>
     <string name="app_home_news">最新ニュース</string>
     <string name="app_home_attractions">レクリエーションスポット</string>
 

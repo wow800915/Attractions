@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.lifecycleScope
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
 
     private var isFirstLoad = true
     private var isRVLoading = false // recyclerView的添加一个标志位，防止重复加载
+    private var attractionTotalAmount = 0
     private var currentAttractionPage = 1 // recyclerView的景點的頁數
 
     override fun onCreateView(
@@ -73,11 +75,23 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         homeAdapter = HomeAdapter()
         binding.rvHome.adapter = homeAdapter
-        binding.rvHome.layoutManager = LinearLayoutManager(context)
+        val layoutManager = LinearLayoutManager(context)
+        binding.rvHome.layoutManager = layoutManager
 
         binding.rvHome.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+
+                // 获取当前显示的第一个和最后一个项的position
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                val displayAttractionCount =
+                    if (firstVisibleItemPosition - 3 <= 0) 1 else firstVisibleItemPosition - 3
+
+                binding.tvAttractionsCount.text = getString(
+                    R.string.app_home_attractions_with_value,
+                    displayAttractionCount,
+                    attractionTotalAmount
+                )
 
                 // 检查是否滑动到底部
                 if (!recyclerView.canScrollVertically(1) && !isRVLoading) {
@@ -117,10 +131,14 @@ class HomeFragment : Fragment() {
 
         mediatorLiveData.observe(viewLifecycleOwner) { (attractions, news) ->
             if (attractions != null && news != null) {
-                binding.tvAttractionsCount.text = getString(
-                    R.string.app_home_attractions_with_value,
-                    attractions.total.toString()
-                )
+                if (isFirstLoad) {
+                    attractionTotalAmount = attractions.total.toString().toInt()
+                    binding.tvAttractionsCount.text = getString(
+                        R.string.app_home_attractions_with_value,
+                        1,
+                        attractionTotalAmount
+                    )
+                }
                 setItemIntoRV(attractions, news)
             }
         }

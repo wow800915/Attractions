@@ -3,7 +3,7 @@
 
     <string name="app_home_title">悠遊台北</string>
     <string name="app_home_choose_language">選擇語言</string>
-    <string name="app_home_attractions_with_value">台北市景點 1/%s</string>
+    <string name="app_home_attractions_with_value">台北市景點 %1$d/%2$d</string>
     <string name="app_home_news">最新消息</string>
     <string name="app_home_attractions">遊憩景點</string>
 
