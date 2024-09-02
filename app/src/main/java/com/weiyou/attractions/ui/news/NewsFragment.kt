@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.weiyou.attractions.R
 import com.weiyou.attractions.databinding.FragmentNewsBinding
 import com.weiyou.attractions.ui.MainActivity
@@ -18,6 +19,8 @@ class NewsFragment : Fragment() {
 
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
+
+    private val args: NewsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,15 +35,13 @@ class NewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpperBar()
-
-        val url = arguments?.getString("url") ?: "https://example.com"
-        setupWebView(url)
+        setupWebView()
     }
 
-    private fun setupWebView(url: String) {
+    private fun setupWebView() {
         binding.webview.apply {
             webViewClient = WebViewClient()  // 安全性考量，限制跳转至应用外部
-            loadUrl(url)
+            loadUrl(args.url)
             settings.javaScriptEnabled = true  // 如果需要，启用JavaScript支持
         }
     }

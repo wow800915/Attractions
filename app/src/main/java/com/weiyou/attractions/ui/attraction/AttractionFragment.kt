@@ -32,17 +32,16 @@ class AttractionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//            binding.tvOpenTime.text = attraction.name // 例如
 
         setUpperBar()
 
         val attraction: Attraction = args.attraction
-        binding.tvOpenTime.text = attraction.name // 例如显示景点名称
+        binding.tvOpenTime.text = attraction.open_time // 例如显示景点名称
 
     }
 
     private fun setUpperBar() {
-        val title = getString(R.string.app_home_news) // 替换 your_string_id 为你的字符串资源ID
+        val title = args.attraction.name
 
         val backListener = object : UpperBarBackBottonListener {
             override fun performAction() {
