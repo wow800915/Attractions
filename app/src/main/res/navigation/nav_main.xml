@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment_to_newsFragment"
             app:destination="@id/newsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_attractionFragment"
+            app:destination="@id/attractionFragment" />
     </fragment>
 
     <fragment
@@ -23,4 +26,12 @@
             android:name="url"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/attractionFragment"
+        android:name="com.weiyou.attractions.ui.attraction.AttractionFragment"
+        android:label="Attraction"
+        tools:layout="@layout/fragment_attraction">
+    </fragment>
+
 </navigation>
