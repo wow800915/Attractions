@@ -11,6 +11,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.weiyou.attractions.R
 import com.weiyou.attractions.data.models.api.attractions.Attraction
 import com.weiyou.attractions.data.models.api.attractions.AttractionsOutput
@@ -33,6 +34,8 @@ class HomeFragment : Fragment() {
     private val mediatorLiveData = MediatorLiveData<Pair<AttractionsOutput?, NewsOutput?>>()
 
     private var isFirstLoad = true
+    private var isRVLoading = false // recyclerView的添加一个标志位，防止重复加载
+    private var currentAttractionPage = 1 // recyclerView的景點的頁數
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +53,7 @@ class HomeFragment : Fragment() {
         setObservers()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.fetchAttractions(1)//TODO 如果資料太多 可以考慮用一次拿一些page 然後用recycleView的loadmore
+            homeViewModel.fetchAttractions(currentAttractionPage)//TODO 如果資料太多 可以考慮用一次拿一些page 然後用recycleView的loadmore
             homeViewModel.fetchNews()
         }
     }
@@ -71,6 +74,17 @@ class HomeFragment : Fragment() {
         homeAdapter = HomeAdapter()
         binding.rvHome.adapter = homeAdapter
         binding.rvHome.layoutManager = LinearLayoutManager(context)
+
+        binding.rvHome.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                // 检查是否滑动到底部
+                if (!recyclerView.canScrollVertically(1) && !isRVLoading) {
+                    loadMore() // 加载下一页
+                }
+            }
+        })
 
         homeAdapter.setOnNewsItemClickListener(object : HomeAdapter.OnNewsItemClickListener {
             override fun onNewsItemClick(url: String) {
@@ -145,7 +159,17 @@ class HomeFragment : Fragment() {
             homeAdapter.setItems(homeItems)
             isFirstLoad = false
         } else {
+            val newAttractionItems = attractions.data.map { HomeAttraction(it) }
+            homeAdapter.addItems(newAttractionItems) // 添加新数据
+            isRVLoading = false // 在这里将isLoading设置为false，表示数据加载完成
+        }
+    }
 
+    private fun loadMore() {
+        isRVLoading = true
+        viewLifecycleOwner.lifecycleScope.launch {
+            homeViewModel.fetchAttractions(currentAttractionPage + 1) // 加载下一页数据
+            currentAttractionPage++ // 更新当前页数
         }
     }
 

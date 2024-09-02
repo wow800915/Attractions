@@ -25,6 +25,13 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyItemInserted(items.size - 1) // 通知 RecyclerView 有新項目插入
     }
 
+    // 批量添加新项的方法
+    fun addItems(newItems: List<HomeItem>) {
+        val startIndex = items.size
+        items.addAll(newItems)
+        notifyItemRangeInserted(startIndex, newItems.size) // 通知 RecyclerView 有新项插入
+    }
+
     fun setItems(newItems: List<HomeItem>) {
         items.clear()
         items.addAll(newItems)
