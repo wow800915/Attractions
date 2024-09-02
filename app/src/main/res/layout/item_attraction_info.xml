@@ -20,7 +20,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/shape_rounded_background"
+            android:background="@drawable/shape_rect_blue_radius_16"
             android:padding="4dp" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/shape_rounded_background"
+            android:background="@drawable/shape_rect_blue_radius_16"
             android:padding="4dp"
             android:textColor="@color/blue" />
 
@@ -41,7 +41,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/shape_rounded_background"
+            android:background="@drawable/shape_rect_blue_radius_16"
             android:padding="4dp"
             android:textColor="@color/blue" />
 
@@ -52,7 +52,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/shape_rounded_background"
+            android:background="@drawable/shape_rect_blue_radius_16"
             android:padding="4dp"
             android:textColor="@color/blue" />
 
@@ -64,7 +64,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/shape_rounded_background"
+            android:background="@drawable/shape_rect_blue_radius_16"
             android:padding="4dp"
             android:textColor="@color/blue" />
     </LinearLayout>
