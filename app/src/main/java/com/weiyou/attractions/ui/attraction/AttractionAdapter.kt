@@ -14,12 +14,16 @@ import com.weiyou.attractions.ui.attraction.AttractionItem.Companion.VIEW_TYPE_I
 class AttractionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<AttractionItem>()
 
-    // Mutable list to hold image URLs
+    private var urlClickListener: OnUrlClickListener? = null
 
     fun setItems(attractionItems: List<AttractionItem>) {
         items.clear()
         items.addAll(attractionItems)
         notifyDataSetChanged()
+    }
+
+    fun setOnUrlListener(listener: OnUrlClickListener) {
+        this.urlClickListener = listener
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -63,6 +67,9 @@ class AttractionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is InfoViewHolder -> {
                 val item = items[position] as AttractionInfo
                 holder.tvUrl.text = item.attraction.url
+                holder.tvUrl.setOnClickListener {
+                    urlClickListener?.onUrlClick(item.attraction.url)
+                }
             }
 
         }
@@ -71,5 +78,9 @@ class AttractionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int {
         // Return the size of the dataset
         return items.size
+    }
+
+    interface OnUrlClickListener {
+        fun onUrlClick(url: String)
     }
 }

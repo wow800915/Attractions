@@ -10,10 +10,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.weiyou.attractions.R
 import com.weiyou.attractions.data.models.api.attractions.Attraction
-import com.weiyou.attractions.data.models.api.attractions.Image
 import com.weiyou.attractions.databinding.FragmentAttractionBinding
 import com.weiyou.attractions.ui.MainActivity
-import com.weiyou.attractions.ui.home.HomeItem
 import com.weiyou.attractions.utils.listener.UpperBarBackBottonListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,16 +38,6 @@ class AttractionFragment : Fragment() {
         setUpperBar(attraction.name)
         setupRecycerVIew(attraction)
 
-//        binding.tvOpenTime.text = attraction.open_time // 例如显示景点名称
-//
-//        binding.tvUrl.text = attraction.official_site
-//        binding.tvUrl.setOnClickListener {
-//            val bundle = Bundle()
-//            bundle.putString("title", attraction.name)
-//            bundle.putString("url", attraction.url)
-//            findNavController().navigate(R.id.action_attractionFragment_to_webViewFragment, bundle)
-//        }
-
     }
 
     private fun setUpperBar(title: String) {
@@ -65,7 +53,22 @@ class AttractionFragment : Fragment() {
     }
 
     private fun setupRecycerVIew(attraction: Attraction) {
+        val attractionAdapter = AttractionAdapter()
+        binding.rvAttraction.adapter = attractionAdapter
         binding.rvAttraction.layoutManager = LinearLayoutManager(context)
+
+        attractionAdapter.setOnUrlListener(object : AttractionAdapter.OnUrlClickListener {
+            override fun onUrlClick(url: String) {
+                val bundle = Bundle()
+                bundle.putString("title", attraction.name)
+                bundle.putString("url", attraction.url)
+                findNavController().navigate(
+                    R.id.action_attractionFragment_to_webViewFragment,
+                    bundle
+                )
+            }
+        })
+
         val attractionItems = mutableListOf<AttractionItem>()
 
         attraction.images.forEach {
@@ -74,9 +77,7 @@ class AttractionFragment : Fragment() {
 
         attractionItems.add(AttractionInfo(attraction))
 
-        val adapter = AttractionAdapter()
-        adapter.setItems(attractionItems)
-        binding.rvAttraction.adapter = adapter
+        attractionAdapter.setItems(attractionItems)
     }
 
     override fun onDestroyView() {
