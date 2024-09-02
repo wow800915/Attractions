@@ -48,6 +48,7 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tv_title)
+        val tvDescription: TextView = view.findViewById(R.id.tv_description)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -100,6 +101,7 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is NewsViewHolder -> {
                 val item = items[position] as HomeNewsItem
                 holder.tvTitle.text = item.newsItem.title
+                holder.tvDescription.text = item.newsItem.description
                 holder.itemView.setOnClickListener {
                     newsItemClickListener?.onNewsItemClick(item.newsItem.url)
                 }
