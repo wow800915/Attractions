@@ -32,6 +32,9 @@
         android:name="com.weiyou.attractions.ui.attraction.AttractionFragment"
         android:label="Attraction"
         tools:layout="@layout/fragment_attraction">
+        <action
+            android:id="@+id/action_attractionFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
         <argument
             android:name="attraction"
             app:argType="com.weiyou.attractions.data.models.api.attractions.Attraction" />

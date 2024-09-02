@@ -38,6 +38,13 @@ class AttractionFragment : Fragment() {
         val attraction: Attraction = args.attraction
         binding.tvOpenTime.text = attraction.open_time // 例如显示景点名称
 
+        binding.tvUrl.text = attraction.url
+        binding.tvUrl.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("url", attraction.url)
+            findNavController().navigate(R.id.action_attractionFragment_to_newsFragment, bundle)
+        }
+
     }
 
     private fun setUpperBar() {
