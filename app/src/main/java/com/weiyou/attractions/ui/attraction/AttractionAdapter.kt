@@ -36,7 +36,10 @@ class AttractionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class InfoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvOpenTime: TextView = view.findViewById(R.id.tv_open_time)
+        val tvAddress: TextView = view.findViewById(R.id.tv_address)
+        val tvTel: TextView = view.findViewById(R.id.tv_tel)
         val tvUrl: TextView = view.findViewById(R.id.tv_url)
+        val tvIntroduction: TextView = view.findViewById(R.id.tv_introduction)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -68,15 +71,27 @@ class AttractionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is InfoViewHolder -> {
                 val item = items[position] as AttractionInfo
                 holder.tvOpenTime.text = holder.itemView.context.getString(
-                    R.string.app_attraction_open_time_with_value,
+                    R.string.app_attraction_introduction_with_value,
                     item.attraction.open_time
+                )
+                holder.tvAddress.text = holder.itemView.context.getString(
+                    R.string.app_attraction_address_with_value,
+                    item.attraction.address
+                )
+                holder.tvTel.text = holder.itemView.context.getString(
+                    R.string.app_attraction_tel_with_value,
+                    item.attraction.tel
                 )
                 holder.tvUrl.text = holder.itemView.context.getString(
                     R.string.app_attraction_web_url_with_value,
-                    item.attraction.url
+                    item.attraction.official_site
+                )
+                holder.tvIntroduction.text = holder.itemView.context.getString(
+                    R.string.app_attraction_introduction_with_value,
+                    item.attraction.introduction
                 )
                 holder.tvUrl.setOnClickListener {
-                    urlClickListener?.onUrlClick(item.attraction.url)
+                    item.attraction.official_site?.let { it1 -> urlClickListener?.onUrlClick(it1) }
                 }
             }
 

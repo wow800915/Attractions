@@ -7,9 +7,9 @@
     <string name="app_home_news">Latest News</string>
     <string name="app_home_attractions">Recreational Attractions</string>
 
-    <string name="app_attraction_open_time_with_value">Opening Hours: %s</string>
+    <string name="app_attraction_introduction_with_value">Opening Hours: %s</string>
     <string name="app_attraction_address_with_value">Address: %s</string>
-    <string name="app_attraction_telephone_with_value">Contact Number: %s</string>
+    <string name="app_attraction_tel_with_value">Contact Number: %s</string>
     <string name="app_attraction_web_url_with_value">Website: %s</string>
 
     <string-array name="language_options">

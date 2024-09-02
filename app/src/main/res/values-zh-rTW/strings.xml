@@ -7,9 +7,9 @@
     <string name="app_home_news">最新消息</string>
     <string name="app_home_attractions">遊憩景點</string>
 
-    <string name="app_attraction_open_time_with_value">營業時間: %s</string>
+    <string name="app_attraction_introduction_with_value">營業時間: %s</string>
     <string name="app_attraction_address_with_value">地址: %s</string>
-    <string name="app_attraction_telephone_with_value">聯絡電話: %s</string>
+    <string name="app_attraction_tel_with_value">聯絡電話: %s</string>
     <string name="app_attraction_web_url_with_value">網址: %s</string>
 
     <string-array name="language_options">

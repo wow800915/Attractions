@@ -8,9 +8,9 @@
     <string name="app_home_news">最新ニュース</string>
     <string name="app_home_attractions">レクリエーションスポット</string>
 
-    <string name="app_attraction_open_time_with_value">営業時間: %s</string>
+    <string name="app_attraction_introduction_with_value">営業時間: %s</string>
     <string name="app_attraction_address_with_value">住所: %s</string>
-    <string name="app_attraction_telephone_with_value">連絡先: %s</string>
+    <string name="app_attraction_tel_with_value">連絡先: %s</string>
     <string name="app_attraction_web_url_with_value">ウェブサイト: %s</string>
 
     <string-array name="language_options">
