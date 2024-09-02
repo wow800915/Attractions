@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ class AttractionFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: AttractionFragmentArgs by navArgs()
+    private val viewModel: AttractionViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,9 +36,14 @@ class AttractionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val attraction: Attraction = args.attraction
-        setUpperBar(attraction.name)
-        setupRecycerVIew(attraction)
+        // Set the attraction in ViewModel
+        viewModel.setAttraction(args.attraction)
+
+        // Observe the attraction data
+        viewModel.attraction.observe(viewLifecycleOwner) { attraction ->
+            setUpperBar(attraction.name)
+            setupRecyclerView(attraction)
+        }
 
     }
 
@@ -52,7 +59,7 @@ class AttractionFragment : Fragment() {
         (activity as? MainActivity)?.setUpperBar(title, backListener, null)
     }
 
-    private fun setupRecycerVIew(attraction: Attraction) {
+    private fun setupRecyclerView(attraction: Attraction) {
         val attractionAdapter = AttractionAdapter()
         binding.rvAttraction.adapter = attractionAdapter
         binding.rvAttraction.layoutManager = LinearLayoutManager(context)
