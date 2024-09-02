@@ -1,4 +1,4 @@
-package com.weiyou.attractions.ui.news
+package com.weiyou.attractions.ui.webview
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,25 +9,25 @@ import android.webkit.WebViewClient
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.weiyou.attractions.R
-import com.weiyou.attractions.databinding.FragmentNewsBinding
+import com.weiyou.attractions.databinding.FragmentWebviewBinding
 import com.weiyou.attractions.ui.MainActivity
 import com.weiyou.attractions.utils.listener.UpperBarBackBottonListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewsFragment : Fragment() {
+class WebViewFragment : Fragment() {
 
-    private var _binding: FragmentNewsBinding? = null
+    private var _binding: FragmentWebviewBinding? = null
     private val binding get() = _binding!!
 
-    private val args: NewsFragmentArgs by navArgs()
+    private val args: WebViewFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Initialize View Binding
-        _binding = FragmentNewsBinding.inflate(inflater, container, false)
+        _binding = FragmentWebviewBinding.inflate(inflater, container, false)
         return binding.root
     }
 

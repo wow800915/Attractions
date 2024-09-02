@@ -10,18 +10,18 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_newsFragment"
-            app:destination="@id/newsFragment" />
+            android:id="@+id/action_homeFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
         <action
             android:id="@+id/action_homeFragment_to_attractionFragment"
             app:destination="@id/attractionFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.weiyou.attractions.ui.news.NewsFragment"
+        android:id="@+id/webViewFragment"
+        android:name="com.weiyou.attractions.ui.webview.WebViewFragment"
         android:label="News"
-        tools:layout="@layout/fragment_news">
+        tools:layout="@layout/fragment_webview">
         <argument
             android:name="url"
             app:argType="string" />
@@ -33,8 +33,8 @@
         android:label="Attraction"
         tools:layout="@layout/fragment_attraction">
         <action
-            android:id="@+id/action_attractionFragment_to_newsFragment"
-            app:destination="@id/newsFragment" />
+            android:id="@+id/action_attractionFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
         <argument
             android:name="attraction"
             app:argType="com.weiyou.attractions.data.models.api.attractions.Attraction" />

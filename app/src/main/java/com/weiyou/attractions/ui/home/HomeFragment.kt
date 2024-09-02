@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
             override fun onNewsItemClick(url: String) {
                 val bundle = Bundle()
                 bundle.putString("url", url)
-                findNavController().navigate(R.id.action_homeFragment_to_newsFragment, bundle)
+                findNavController().navigate(R.id.action_homeFragment_to_webViewFragment, bundle)
             }
         })
 
