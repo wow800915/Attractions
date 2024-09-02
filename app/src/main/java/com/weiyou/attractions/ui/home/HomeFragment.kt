@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpperBar()
+        setUpperBar(getString(R.string.app_home_title))
         setupRecyclerView()
         setObservers()
 
@@ -53,9 +53,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setUpperBar() {
-        val title = getString(R.string.app_home_title) // 替换 your_string_id 为你的字符串资源ID
-
+    private fun setUpperBar(title: String) {
         val bottonListener = object : UpperBarRightBottonListener {
             override fun performAction() {
                 if (isAdded) {

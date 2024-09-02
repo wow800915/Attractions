@@ -34,7 +34,7 @@ class WebViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpperBar()
+        setUpperBar(getString(R.string.app_home_news))
         setupWebView()
     }
 
@@ -46,9 +46,7 @@ class WebViewFragment : Fragment() {
         }
     }
 
-    private fun setUpperBar() {
-        val title = getString(R.string.app_home_news) // 替换 your_string_id 为你的字符串资源ID
-
+    private fun setUpperBar(title: String) {
         val backListener = object : UpperBarBackBottonListener {
             override fun performAction() {
                 if (isAdded) {

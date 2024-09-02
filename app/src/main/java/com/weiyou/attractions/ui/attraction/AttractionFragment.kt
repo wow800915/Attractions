@@ -33,9 +33,9 @@ class AttractionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpperBar()
-
         val attraction: Attraction = args.attraction
+        setUpperBar(attraction.name)
+
         binding.tvOpenTime.text = attraction.open_time // 例如显示景点名称
 
         binding.tvUrl.text = attraction.url
@@ -47,9 +47,7 @@ class AttractionFragment : Fragment() {
 
     }
 
-    private fun setUpperBar() {
-        val title = args.attraction.name
-
+    private fun setUpperBar(title: String) {
         val backListener = object : UpperBarBackBottonListener {
             override fun performAction() {
                 if (isAdded) {
