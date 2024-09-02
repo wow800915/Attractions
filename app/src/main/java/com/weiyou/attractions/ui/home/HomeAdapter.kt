@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.weiyou.attractions.R
+import com.weiyou.attractions.data.models.api.attractions.Attraction
 import com.weiyou.attractions.ui.home.HomeItem.Companion.VIEW_TYPE_ATTRACTION
 import com.weiyou.attractions.ui.home.HomeItem.Companion.VIEW_TYPE_NEWS_ITEM
 import com.weiyou.attractions.ui.home.HomeItem.Companion.VIEW_TYPE_TITLE
@@ -16,6 +17,7 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<HomeItem>()
 
     private var newsItemClickListener: OnNewsItemClickListener? = null
+    private var attractionClickListener: OnAttractionClickListener? = null
 
     fun setItems(newItems: List<HomeItem>) {
         items.clear()
@@ -25,6 +27,10 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun setOnNewsItemClickListener(listener: OnNewsItemClickListener) {
         this.newsItemClickListener = listener
+    }
+
+    fun setOnAttractionClickListener(listener: OnAttractionClickListener) {
+        this.attractionClickListener = listener
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -85,6 +91,10 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 } else {
                     holder.ivAttraction.visibility = View.INVISIBLE
                 }
+
+                holder.itemView.setOnClickListener {
+                    attractionClickListener?.onAttractionClick(item.attraction)
+                }
             }
 
             is NewsViewHolder -> {
@@ -103,5 +113,9 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnNewsItemClickListener {
         fun onNewsItemClick(url: String)
+    }
+
+    interface OnAttractionClickListener {
+        fun onAttractionClick(attraction: Attraction)
     }
 }

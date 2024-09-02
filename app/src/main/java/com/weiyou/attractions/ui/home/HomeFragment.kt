@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.weiyou.attractions.R
+import com.weiyou.attractions.data.models.api.attractions.Attraction
 import com.weiyou.attractions.data.models.api.attractions.AttractionsOutput
 import com.weiyou.attractions.data.models.api.news.NewsOutput
 import com.weiyou.attractions.databinding.FragmentHomeBinding
@@ -76,6 +77,15 @@ class HomeFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putString("url", url)
                 findNavController().navigate(R.id.action_homeFragment_to_newsFragment, bundle)
+            }
+        })
+
+        homeAdapter.setOnAttractionClickListener(object : HomeAdapter.OnAttractionClickListener {
+            override fun onAttractionClick(attraction: Attraction) {
+                //TODO 要把attraction送過去AttractionFragment
+//                val bundle = Bundle()
+//                bundle.putString("url", Attraction)
+                findNavController().navigate(R.id.action_homeFragment_to_attractionFragment)
             }
         })
     }
