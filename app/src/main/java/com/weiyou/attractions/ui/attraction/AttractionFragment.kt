@@ -41,6 +41,7 @@ class AttractionFragment : Fragment() {
         binding.tvUrl.text = attraction.url
         binding.tvUrl.setOnClickListener {
             val bundle = Bundle()
+            bundle.putString("title", attraction.name)
             bundle.putString("url", attraction.url)
             findNavController().navigate(R.id.action_attractionFragment_to_webViewFragment, bundle)
         }

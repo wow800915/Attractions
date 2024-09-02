@@ -23,6 +23,9 @@
         android:label="News"
         tools:layout="@layout/fragment_webview">
         <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
             android:name="url"
             app:argType="string" />
     </fragment>

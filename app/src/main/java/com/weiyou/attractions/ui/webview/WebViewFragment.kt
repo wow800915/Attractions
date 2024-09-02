@@ -34,7 +34,7 @@ class WebViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpperBar(getString(R.string.app_home_news))
+        setUpperBar(args.title)
         setupWebView()
     }
 
