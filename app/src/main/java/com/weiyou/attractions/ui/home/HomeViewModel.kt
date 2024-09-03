@@ -45,13 +45,11 @@ class HomeViewModel @Inject constructor(
                     if (result is NetworkResult.Success) {
                         _attractions.value = result.data
                     } else if (result is NetworkResult.Error) {
-                        _attractions.value = null
                         _errorMessage.value = result.error?.message
                     }
                 }
                 .catch { e ->
                     _isLoading.value = false
-                    _attractions.value = null
                     _errorMessage.value = e.message
                 }
                 .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
@@ -70,13 +68,11 @@ class HomeViewModel @Inject constructor(
                     if (result is NetworkResult.Success) {
                         _news.value = result.data
                     } else if (result is NetworkResult.Error) {
-                        _news.value = null
                         _errorMessage.value = result.error?.message
                     }
                 }
                 .catch { e ->
                     _isLoading.value = false
-                    _news.value = null
                     _errorMessage.value = e.message
                 }
                 .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
