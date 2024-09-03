@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         binding.tvTitle.text = title
         if (upperBarBackBottonListener == null) {
-            binding.ivBack.visibility = View.GONE
+            binding.ivBack.visibility = View.INVISIBLE
         } else {
             binding.ivBack.visibility = View.VISIBLE
             binding.ivBack.setOnClickListener {
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (upperBarRightBottonListener == null) {
-            binding.ivLang.visibility = View.GONE
+            binding.ivLang.visibility = View.INVISIBLE
         } else {
             binding.ivLang.visibility = View.VISIBLE
             binding.ivLang.setOnClickListener {
