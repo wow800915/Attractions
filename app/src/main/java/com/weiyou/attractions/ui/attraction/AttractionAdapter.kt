@@ -65,8 +65,8 @@ class AttractionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val item = items[position] as AttractionImage
                 Glide.with(holder.ivImage.context)
                     .load(item.url)
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .error(R.drawable.ic_launcher_foreground) //TODO placeholder及error要改圖
+                    .placeholder(android.R.drawable.stat_notify_sync)
+                    .error(android.R.drawable.stat_notify_sync)
                     .thumbnail(0.1f)  // 使用 thumbnail 功能可以先加載一個縮略圖，提升用戶體驗。
                     .into(holder.ivImage)
             }
