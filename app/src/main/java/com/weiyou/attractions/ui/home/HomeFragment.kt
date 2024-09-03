@@ -210,6 +210,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadMore() {
+        //一頁30個,超過總數就不load了
+        if (currentAttractionPage * 30 > attractionTotalAmount) {
+            return
+        }
+
         isRVLoading = true
         viewLifecycleOwner.lifecycleScope.launch {
             homeViewModel.fetchAttractions(currentAttractionPage + 1) // 加載下一頁的數據
