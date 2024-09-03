@@ -14,15 +14,15 @@
     <string name="app_attraction_web_url_with_value">ウェブサイト: %s</string>
 
     <string-array name="language_options">
-        <item>英語</item>  <!-- 英文 -->
-        <item>簡体字中国語</item>  <!-- 简体中文 -->
-        <item>繁体字中国語</item>  <!-- 正體中文 -->
-        <item>日本語</item>  <!-- 日文 -->
-        <item>韓国語</item>  <!-- 韩文 -->
-        <item>スペイン語</item>  <!-- 西班牙文 -->
-        <item>インドネシア語</item>  <!-- 印尼文 -->
-        <item>タイ語</item>  <!-- 泰文 -->
-        <item>ベトナム語</item>  <!-- 越南文 -->
+        <item>英語</item>
+        <item>簡体字中国語</item>
+        <item>繁体字中国語</item>
+        <item>日本語</item>
+        <item>韓国語</item>
+        <item>スペイン語</item>
+        <item>インドネシア語</item>
+        <item>タイ語</item>
+        <item>ベトナム語</item>
     </string-array>
     <string-array name="language_values">
         <item>en</item>

@@ -54,7 +54,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    // 新增UI TEST
+// UI TEST
     androidTestImplementation(libs.androidx.espresso.intents)
 // Hilt for testing
     androidTestImplementation(libs.hilt.android.testing)
@@ -64,11 +64,11 @@ dependencies {
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.test.runner)
 
-    // hilt
+// hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 
-    // navigation
+// navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
