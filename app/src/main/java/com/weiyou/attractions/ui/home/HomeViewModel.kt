@@ -52,7 +52,7 @@ class HomeViewModel @Inject constructor(
                     _isLoading.value = false
                     _errorMessage.value = e.message
                 }
-                .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
+                .launchIn(viewModelScope)
         }
     }
 
@@ -75,7 +75,7 @@ class HomeViewModel @Inject constructor(
                     _isLoading.value = false
                     _errorMessage.value = e.message
                 }
-                .launchIn(viewModelScope) // 使用 viewModelScope 启动协程
+                .launchIn(viewModelScope)
         }
     }
 
@@ -84,6 +84,4 @@ class HomeViewModel @Inject constructor(
             homeRepository.saveLanguage(language)
         }
     }
-
-    val language = homeRepository.getSavedLanguage()
 }

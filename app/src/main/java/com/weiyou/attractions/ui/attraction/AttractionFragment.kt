@@ -36,10 +36,8 @@ class AttractionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set the attraction in ViewModel
         viewModel.setAttraction(args.attraction)
 
-        // Observe the attraction data
         viewModel.attraction.observe(viewLifecycleOwner) { attraction ->
             setUpperBar(attraction.name)
             setupRecyclerView(attraction)

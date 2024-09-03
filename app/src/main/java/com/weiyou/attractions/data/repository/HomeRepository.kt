@@ -18,11 +18,10 @@ class HomeRepository @Inject constructor(
     private val languageDataStore: LanguageDataStore
 ) {
 
-    // API 调用获取景点信息
     suspend fun getAttractions(page: Int): Flow<NetworkResult<AttractionsOutput>> {
         return languageDataStore.selectedLanguage
-            .filterNotNull() // 过滤空值
-            .flatMapLatest { lang -> // 使用最新的语言设置请求数据
+            .filterNotNull()
+            .flatMapLatest { lang ->
                 flow {
                     val result = remoteDataSource.getAttractions(lang, page)
                     emit(result)
@@ -32,8 +31,8 @@ class HomeRepository @Inject constructor(
 
     suspend fun getNews(): Flow<NetworkResult<NewsOutput>> {
         return languageDataStore.selectedLanguage
-            .filterNotNull() // 过滤空值
-            .flatMapLatest { lang -> // 使用最新的语言设置请求数据
+            .filterNotNull()
+            .flatMapLatest { lang ->
                 flow {
                     val result = remoteDataSource.getNews(lang)
                     emit(result)
@@ -41,12 +40,10 @@ class HomeRepository @Inject constructor(
             }
     }
 
-    // 保存语言设置
     suspend fun saveLanguage(language: String) {
         languageDataStore.saveLanguage(language)
     }
 
-    // 获取保存的语言设置
     fun getSavedLanguage(): Flow<String?> {
         return languageDataStore.selectedLanguage
     }

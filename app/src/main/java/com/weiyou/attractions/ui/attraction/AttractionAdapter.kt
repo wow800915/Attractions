@@ -99,7 +99,6 @@ class AttractionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        // Return the size of the dataset
         return items.size
     }
 

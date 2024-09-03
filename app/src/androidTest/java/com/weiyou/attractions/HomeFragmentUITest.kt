@@ -27,26 +27,20 @@ class HomeFragmentUITest {
 
     @Test
     fun testLanguageSelectionEnglish() {
-        // 等待语言选择按钮显示并点击
         onView(withId(R.id.iv_lang)).check(matches(isDisplayed())).perform(click())
 
-        // 在对话框中选择英语
         onView(withText("英文")).perform(click())
 
-        // 验证语言更改后UI元素的变化
         onView(allOf(withId(R.id.tv_title), withParent(withId(R.id.upperBarLayout))))
             .check(matches(withText("Explore Taipei")))
     }
 
     @Test
     fun testLanguageSelectionChinese() {
-        // 等待语言选择按钮显示并点击
         onView(withId(R.id.iv_lang)).check(matches(isDisplayed())).perform(click())
 
-        // 在对话框中选择中文
         onView(withText("Traditional Chinese")).perform(click())
 
-        // 验证语言更改后UI元素的变化
         onView(allOf(withId(R.id.tv_title), withParent(withId(R.id.upperBarLayout))))
             .check(matches(withText("悠遊台北")))
     }

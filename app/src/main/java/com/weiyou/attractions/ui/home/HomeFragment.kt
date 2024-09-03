@@ -29,13 +29,13 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeViewModel: HomeViewModel by viewModels() // 使用 Hilt 注入 ViewModel
+    private val homeViewModel: HomeViewModel by viewModels()
 
     private lateinit var homeAdapter: HomeAdapter
     private val mediatorLiveData = MediatorLiveData<Pair<AttractionsOutput?, NewsOutput?>>()
 
     private var isFirstLoad = true
-    private var isRVLoading = false // recyclerView的添加一个标志位，防止重复加载
+    private var isRVLoading = false
     private var attractionTotalAmount = 0
     private var currentAttractionPage = 1 // recyclerView的景點的頁數
 
@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
         setObservers()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.fetchAttractions(currentAttractionPage)//TODO 如果資料太多 可以考慮用一次拿一些page 然後用recycleView的loadmore
+            homeViewModel.fetchAttractions(currentAttractionPage)
             homeViewModel.fetchNews()
         }
     }
@@ -82,7 +82,6 @@ class HomeFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                // 获取当前显示的第一个和最后一个项的position
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
                 val displayAttractionCount =
                     if (firstVisibleItemPosition - 3 <= 0) 1 else firstVisibleItemPosition - 3
@@ -93,9 +92,9 @@ class HomeFragment : Fragment() {
                     attractionTotalAmount
                 )
 
-                // 检查是否滑动到底部
+                // 检查是否滑動到底部
                 if (!recyclerView.canScrollVertically(1) && !isRVLoading) {
-                    loadMore() // 加载下一页
+                    loadMore() // 加載下一頁
                 }
             }
         })
@@ -111,9 +110,8 @@ class HomeFragment : Fragment() {
 
         homeAdapter.setOnAttractionClickListener(object : HomeAdapter.OnAttractionClickListener {
             override fun onAttractionClick(attraction: Attraction) {
-                //位置A
                 val bundle = Bundle().apply {
-                    putParcelable("attraction", attraction) // 确保 Attraction 实现 Parcelable 接口
+                    putParcelable("attraction", attraction)
                 }
                 findNavController().navigate(R.id.action_homeFragment_to_attractionFragment, bundle)
             }
@@ -190,16 +188,16 @@ class HomeFragment : Fragment() {
             isFirstLoad = false
         } else {
             val newAttractionItems = attractions.data.map { HomeAttraction(it) }
-            homeAdapter.addItems(newAttractionItems) // 添加新数据
-            isRVLoading = false // 在这里将isLoading设置为false，表示数据加载完成
+            homeAdapter.addItems(newAttractionItems)
+            isRVLoading = false // 在這裡將 isLoading 設置為 false，表示數據加載完成
         }
     }
 
     private fun loadMore() {
         isRVLoading = true
         viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.fetchAttractions(currentAttractionPage + 1) // 加载下一页数据
-            currentAttractionPage++ // 更新当前页数
+            homeViewModel.fetchAttractions(currentAttractionPage + 1) // 加載下一頁的數據
+            currentAttractionPage++ // 更新當前頁數
         }
     }
 

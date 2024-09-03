@@ -39,9 +39,8 @@ data class Attraction(
     val images: List<Image>,
     val files: List<File>,
     val links: List<Link>
-) : Parcelable // 让 Attraction 类实现 Parcelable 接口
+) : Parcelable
 
-// 如果 Category, Target, Service, Friendly, Image, File, Link 类也需要传递，可以同样实现 Parcelable 接口
 @Parcelize
 data class Category(
     val id: Int,

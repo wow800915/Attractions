@@ -74,7 +74,7 @@ class WebViewFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.webview.destroy()  // 清理 WebView 资源
+        binding.webview.destroy()  // 清理 WebView 資源
         _binding = null
     }
 }

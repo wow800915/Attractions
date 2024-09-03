@@ -7,7 +7,7 @@ import javax.inject.Inject
 class MainRepository @Inject constructor(
     private val languageDataStore: LanguageDataStore
 ) {
-    // 获取语言设置
+
     fun getLanguage(): Flow<String?> {
         return languageDataStore.selectedLanguage
     }
