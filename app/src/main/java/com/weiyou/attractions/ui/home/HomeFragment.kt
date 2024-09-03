@@ -152,7 +152,7 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.errorMessage.observe(viewLifecycleOwner) {
-            //TODO 處理錯誤訊息
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         }
     }
 
