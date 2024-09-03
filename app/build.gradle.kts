@@ -55,15 +55,14 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // 新增UI TEST
-    androidTestImplementation("androidx.test.espresso:espresso-intents:3.6.1")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    // Hilt for testing
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.50")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.50")
-    // Add the necessary Hilt testing dependencies
-    androidTestImplementation("androidx.test:core-ktx:1.5.0")
-    androidTestImplementation("androidx.test:rules:1.5.0")
-    androidTestImplementation("androidx.test:runner:1.5.0")
+    androidTestImplementation(libs.androidx.espresso.intents)
+// Hilt for testing
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.compiler)
+// Add the necessary Hilt testing dependencies
+    androidTestImplementation(libs.androidx.test.core.ktx)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.runner)
 
     // hilt
     implementation(libs.hilt.android)
@@ -73,32 +72,32 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    // AndroidX ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+// AndroidX ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-    // Retrofit and Gson
+// Retrofit and Gson
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
 
-    // livedata
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+// LiveData
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 
-    // OkHttp Logging Interceptor
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
+// OkHttp Logging Interceptor
+    implementation(libs.okhttp.logging.interceptor)
 
-    // datastore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+// DataStore
+    implementation(libs.androidx.datastore.preferences)
 
-    // glide
-    implementation("com.github.bumptech.glide:glide:4.12.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+// Glide
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
 
-    // Unit test dependencies
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("androidx.arch.core:core-testing:2.1.0")
-    testImplementation("org.mockito:mockito-core:5.5.0")
-    testImplementation("org.mockito:mockito-inline:4.11.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0")
+// Unit test dependencies
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.arch.core.testing)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.mockito.kotlin)
 }
 
 kapt {
