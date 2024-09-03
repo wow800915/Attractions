@@ -2,6 +2,7 @@ package com.weiyou.attractions.ui.home
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,7 @@ class HomeFragment : Fragment() {
     private var isRVLoading = false
     private var attractionTotalAmount = 0
     private var currentAttractionPage = 1 // recyclerView的景點的頁數
+    private var preAttractionItemCount = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,14 +85,22 @@ class HomeFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
 
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                // 設置顯示景點數
                 val displayAttractionCount =
-                    if (firstVisibleItemPosition - 3 <= 0) 1 else firstVisibleItemPosition - 3
-
-                binding.tvAttractionsCount.text = getString(
-                    R.string.app_home_attractions_with_value,
-                    displayAttractionCount,
-                    attractionTotalAmount
-                )
+                    if ((firstVisibleItemPosition + 1) - preAttractionItemCount <= 0) 1 else (firstVisibleItemPosition + 1) - preAttractionItemCount //+1是因為firstVisibleItemPosition從０開始算
+                if (attractionTotalAmount == 0) {
+                    binding.tvAttractionsCount.text = getString(
+                        R.string.app_home_attractions_with_value,
+                        attractionTotalAmount,
+                        attractionTotalAmount
+                    )
+                } else {
+                    binding.tvAttractionsCount.text = getString(
+                        R.string.app_home_attractions_with_value,
+                        displayAttractionCount,
+                        attractionTotalAmount
+                    )
+                }
 
                 // 检查是否滑動到底部
                 if (!recyclerView.canScrollVertically(1) && !isRVLoading) {
@@ -186,6 +196,12 @@ class HomeFragment : Fragment() {
 
             homeAdapter.setItems(homeItems)
             isFirstLoad = false
+            preAttractionItemCount = 2 //這個2,是因為recyclerView前面已經先有最新消息的title,遊憩景點的title,共兩個項目
+            preAttractionItemCount += if (news.data.size > 3) {//最新消息最多顯示3個
+                3
+            } else {
+                news.data.size
+            }
         } else {
             val newAttractionItems = attractions.data.map { HomeAttraction(it) }
             homeAdapter.addItems(newAttractionItems)
