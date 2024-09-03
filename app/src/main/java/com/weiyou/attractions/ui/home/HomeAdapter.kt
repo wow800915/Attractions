@@ -19,16 +19,16 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var newsItemClickListener: OnNewsItemClickListener? = null
     private var attractionClickListener: OnAttractionClickListener? = null
 
-    fun addItems(newItems: List<HomeItem>) {
-        val startIndex = items.size
-        items.addAll(newItems)
-        notifyItemRangeInserted(startIndex, newItems.size)
-    }
-
     fun setItems(newItems: List<HomeItem>) {
         items.clear()
         items.addAll(newItems)
         notifyDataSetChanged()
+    }
+
+    fun addItems(newItems: List<HomeItem>) {
+        val startIndex = items.size
+        items.addAll(newItems)
+        notifyItemRangeInserted(startIndex, newItems.size)
     }
 
     fun setOnNewsItemClickListener(listener: OnNewsItemClickListener) {
@@ -93,11 +93,16 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 holder.tvIntroduction.text = item.attraction.introduction
 
                 if (!item.attraction.images.isNullOrEmpty() && item.attraction.images[0].src != null) {
+                    holder.ivAttraction.visibility = View.VISIBLE
                     Glide.with(holder.itemView)
                         .load(item.attraction.images[0].src)
+                        .placeholder(R.drawable.ic_launcher_foreground)
+                        .error(R.drawable.ic_launcher_foreground) //TODO placeholder及error要改圖
+                        .thumbnail(0.1f)  // 使用 thumbnail 功能可以先加載一個縮略圖，提升用戶體驗。
                         .into(holder.ivAttraction)
                 } else {
                     holder.ivAttraction.visibility = View.INVISIBLE
+                    Glide.with(holder.itemView).clear(holder.ivAttraction)  // 清除舊的加載任務。
                 }
 
                 holder.itemView.setOnClickListener {
