@@ -64,11 +64,11 @@ dependencies {
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.test.runner)
 
-// hilt
+// Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 
-// navigation
+// Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
