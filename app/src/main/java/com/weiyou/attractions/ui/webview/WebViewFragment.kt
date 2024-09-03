@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -26,7 +27,6 @@ class WebViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Initialize View Binding
         _binding = FragmentWebviewBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,12 +35,26 @@ class WebViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpperBar(args.title)
+        binding.progressBar.visibility = View.VISIBLE
         setupWebView()
     }
 
     private fun setupWebView() {
         binding.webview.apply {
-            webViewClient = WebViewClient()  // 安全性考量，限制跳转至应用外部
+            webViewClient = object : WebViewClient() {
+                override fun onPageStarted(
+                    view: WebView?,
+                    url: String?,
+                    favicon: android.graphics.Bitmap?
+                ) {
+                    super.onPageStarted(view, url, favicon)
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
             loadUrl(args.url)
             settings.javaScriptEnabled = true  // 如果需要，启用JavaScript支持
         }
