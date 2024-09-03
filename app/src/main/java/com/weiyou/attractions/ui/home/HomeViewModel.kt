@@ -84,4 +84,8 @@ class HomeViewModel @Inject constructor(
             homeRepository.saveLanguage(language)
         }
     }
+
+    fun initErrorMessage() {
+        _errorMessage.value = null
+    }
 }
